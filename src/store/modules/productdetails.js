@@ -99,8 +99,8 @@ const state =
         number: state => state.quantities[state.productDetails.id] || 0,
       }
       const vuexPersist = new VuexPersistence({
-        key: 'your-apps-key', // Choose a key for your app
-        storage: window.localStorage, // Choose the storage method (localStorage in this case)
+        key: 'my-app-key', 
+        storage:localStorage,
       });
       export default {
         namespaced: true,
