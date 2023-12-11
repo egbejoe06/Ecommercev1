@@ -12,7 +12,7 @@
         <div class="cartc2"></div>
       </div>
       <div class="cartmain">
-        <div class="cm1">
+        <div class="cm1" v-show="cCard">
           <div class="cmain1">
             <div class="cmain13">
               <span class="cmain11">Card</span>
@@ -55,6 +55,28 @@
               </div>
             </div>
           </div>
+        </div>
+        <div class="cCustomer" v-show="cCustomer">
+          <div class="customer-info">
+            <div class="ci1">Customer Information</div>
+            <div class="ci2">
+              <div class="ci3">
+                <label class="ci4">E-mail</label>
+                <input class="ci5 ci7" type="email" />
+              </div>
+              <div class="ci6">
+                <div class="ci3">
+                  <label class="ci4">First Name</label>
+                  <input class="ci5" type="text" />
+                </div>
+                <div class="ci3">
+                  <label class="ci4">Last Name</label>
+                  <input class="ci5" type="text" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sAddress"></div>
         </div>
         <div class="cm2">
           <div class="cm21">
@@ -218,8 +240,8 @@ export default {
       discount: false,
       gift: false,
       checkedout: true,
-      cCard: true,
-      cCustomer: false,
+      cCard: false,
+      cCustomer: true,
       cShipping: false,
       cProduct: false,
     };
@@ -397,6 +419,70 @@ export default {
   padding-bottom: 40px;
   align-items: flex-start;
   gap: 100px;
+}
+.cCustomer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-8, 32px);
+}
+.customer-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-5, 20px);
+}
+.ci1 {
+  color: var(--text-color-light-primary-text, #262626);
+  font-family: Lato;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 25px; /* 125% */
+}
+.ci2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-3, 12px);
+}
+.ci6 {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-4, 16px);
+}
+.ci3 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-1, 4px);
+}
+.ci4 {
+  color: var(--text-color-light-secondary-text, #555);
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px; /* 142.857% */
+}
+.ci5 {
+  display: flex;
+  padding: var(--spacing-3, 12px);
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+  border-radius: var(--spacing-1, 4px);
+  border: 1px solid var(--button-stroke-stroke, #d9d9d9);
+  background: var(--background-color-white, #fff);
+}
+.ci7 {
+  width: 390px;
+}
+.cartmain1 {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  flex-direction: column;
 }
 .cmain1 {
   display: flex;

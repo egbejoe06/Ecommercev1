@@ -5,8 +5,21 @@ const state =
         productDetails: null,
         comments:[],
         carts:[],
+        countries: [],
+        cities: [],
+        selectedCountry: '',
+        selectedCity: '',
       }
      const mutations = {
+      setCountries(state, countries) {
+        state.countries = countries;      
+      },
+      setCities(state, cities) {
+  state.cities = cities;
+},
+      setSelectedCountry(state, selectedCountry) {
+        state.selectedCountry = selectedCountry;
+      },
         increase(state,productId) {
             state.quantities[productId] = (state.quantities[productId] || 0) + 1;
           },
@@ -24,6 +37,36 @@ const state =
           },
         }
       const actions= {
+        async fetchCountries({ commit }) {
+          try {
+            const response = await fetch('https://countriesnow.space/api/v0.1/countries');
+            const data = await response.json();
+      
+            if (!data.error) {
+              commit('setCountries', data.data);
+              commit('setCities', data.data[0].cities);
+            } else {
+              console.error('Error fetching data:', data.msg);
+            }
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        },
+        updateCities({ commit, state }) {
+          const selectedCountryData = state.countries.find(
+            (country) => country.country === state.selectedCountry
+          );
+      
+          if (selectedCountryData) {
+            if (selectedCountryData.cities) {
+              commit('setCities', selectedCountryData.cities);
+            } else {
+              console.error('Cities property is undefined for the selected country.');
+            }
+          } else {
+            console.error('Selected country data is undefined.');
+          }
+        },
         async fetchProductDetails({ commit }, productId) {
             try {
               const response = await fetch(`https://dummyjson.com/products/${productId}`);
@@ -70,6 +113,9 @@ const state =
           },
       }
    const getters= {
+        countries: (state) => state.countries,
+        cities: (state) => state.cities,
+        selectedCountry: (state) => state.selectedCountry,
         carts: state => state.carts,
         productDetails: state => state.productDetails,
         comments: state => state.comments,

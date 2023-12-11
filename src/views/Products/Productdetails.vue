@@ -185,16 +185,16 @@
                       >
                         {{ country.country }}
                       </option>
-                    </select></span
-                  >
+                    </select>
+                  </span>
                   <span>
                     <select class="ship32" v-model="selectedCity">
                       <option value="">Select a city</option>
                       <option v-for="city in cities" :value="city" :key="city">
                         {{ city }}
                       </option>
-                    </select></span
-                  >
+                    </select>
+                  </span>
                 </div>
               </div>
             </div>
@@ -287,10 +287,6 @@ export default {
   components: { Header, Footer },
   data() {
     return {
-      countries: [],
-      cities: [],
-      selectedCountry: "",
-      selectedCity: "",
       sProduct: true,
       sReview: false,
       sshipping: false,
@@ -304,14 +300,14 @@ export default {
         },
         {
           id: 2,
-          image:"../../assets/22.png",
+          image: "../../assets/22.png",
           cost: "$15",
           deliveryTime: "7-14 days",
           insurance: "Available",
         },
         {
           id: 3,
-          image:"../../assets/23.gif",
+          image: "../../assets/23.gif",
           cost: "$21",
           deliveryTime: "3-7 days",
           insurance: "Available",
@@ -335,6 +331,9 @@ export default {
       "productDetails",
       "comments",
       "carts",
+      "countries",
+      "cities",
+      "selectedCountry",
     ]),
     ...mapGetters("product", ["products", "isFavorite", "Images", "favoriteProducts"]),
     randomComments() {
@@ -380,7 +379,7 @@ export default {
     this.$store.dispatch("productdetails/fetchProductDetails", productId);
     this.$store.dispatch("productdetails/fetchComment");
     this.$store.dispatch("product/fetchProduct");
-    this.shipping();
+    this.$store.dispatch("productdetails/fetchCountries");
   },
   watch: {
     "$route.params.id": function (newProductId, oldProductId) {
@@ -417,29 +416,13 @@ export default {
       }
       this.$router.push("/Cart");
     },
-    shipping() {
-      fetch("https://countriesnow.space/api/v0.1/countries")
-        .then((response) => response.json())
-        .then((data) => {
-          if (!data.error) {
-            this.countries = data.data;
-            this.displayCities(this.countries[0].cities);
-          } else {
-            console.error("Error fetching data:", data.msg);
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching data:", error);
-        });
-    },
     displayCities(cities) {
-      this.cities = cities;
+      this.$store.commit("productdetails/setCities", cities);
     },
     updateCities() {
-      const selectedCountryData = this.countries.find(
-        (country) => country.country === this.selectedCountry
-      );
-      this.displayCities(selectedCountryData.cities);
+      console.log("Selected Country:", this.selectedCountry);
+      console.log("Countries:", this.countries);
+      this.$store.dispatch("productdetails/updateCities");
     },
     calculateNormalPrice(discountPercentage, discountPrice) {
       if (typeof discountPercentage === "number" && discountPercentage !== 0) {
