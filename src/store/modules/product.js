@@ -58,7 +58,7 @@ const state =
       }
       const vuexPersist = new VuexPersistence({
         key: 'my-app-key',
-        storage: localStorage,
+        storage: window.localStorage,
         paths: ['isFavorite'],
       });
       export default {

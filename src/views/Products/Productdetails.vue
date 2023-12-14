@@ -175,7 +175,7 @@
                     <select
                       class="ship32"
                       v-model="selectedCountry"
-                      @change="updateCities"
+                      @change="updateSelectedCountry"
                     >
                       <option value="">Select a country</option>
                       <option
@@ -287,27 +287,29 @@ export default {
   components: { Header, Footer },
   data() {
     return {
+      selectedCity: "",
+      selectedCountry: "",
       sProduct: true,
       sReview: false,
       sshipping: false,
       shippings: [
         {
           id: 1,
-          image: "../../assets/1582.png",
+          image: "../src/assets/1582.png",
           cost: "Free",
           deliveryTime: "14-21 days",
           insurance: "Unavailable",
         },
         {
           id: 2,
-          image: "../../assets/22.png",
+          image: "../src/assets/22.png",
           cost: "$15",
           deliveryTime: "7-14 days",
           insurance: "Available",
         },
         {
           id: 3,
-          image: "../../assets/23.gif",
+          image: "../src/assets/23.gif",
           cost: "$21",
           deliveryTime: "3-7 days",
           insurance: "Available",
@@ -334,6 +336,7 @@ export default {
       "countries",
       "cities",
       "selectedCountry",
+      "selectedCity",
     ]),
     ...mapGetters("product", ["products", "isFavorite", "Images", "favoriteProducts"]),
     randomComments() {
@@ -385,9 +388,19 @@ export default {
     "$route.params.id": function (newProductId, oldProductId) {
       this.$store.dispatch("productdetails/fetchProductDetails", newProductId);
     },
+    selectedCountry(newValue) {
+      this.$store.commit("productdetails/setSelectedCountry", newValue);
+    },
   },
 
   methods: {
+    updateCities() {
+      this.$store.dispatch("productdetails/updateCities");
+    },
+    updateSelectedCountry() {
+      this.updateCities();
+      this.$store.commit("productdetails/setSelectedCountry", this.selectedCountry);
+    },
     addCart(product) {
       const isProductInCart = this.carts.some((item) => item.id === product.id);
       const Quantity = 1;
@@ -420,8 +433,6 @@ export default {
       this.$store.commit("productdetails/setCities", cities);
     },
     updateCities() {
-      console.log("Selected Country:", this.selectedCountry);
-      console.log("Countries:", this.countries);
       this.$store.dispatch("productdetails/updateCities");
     },
     calculateNormalPrice(discountPercentage, discountPrice) {

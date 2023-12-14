@@ -9,8 +9,12 @@ const state =
         cities: [],
         selectedCountry: '',
         selectedCity: '',
+        flagImageUrl: "",
       }
      const mutations = {
+      setFlagImageUrl(state, flagImageUrl) {
+        state.flagImageUrl = flagImageUrl;
+      },
       setCountries(state, countries) {
         state.countries = countries;      
       },
@@ -37,6 +41,28 @@ const state =
           },
         }
       const actions= {
+        
+        async fetchFlagImageUrl({ commit }, country) {
+          try {
+            const response = await fetch('https://countriesnow.space/api/v0.1/countries/flag/images/');
+            const data = await response.json();
+        
+            if (!data.error) {
+              const countryData = data.data.find((item) => item.name === country);
+        
+              if (countryData) {
+                const flagImageUrl = countryData.flag;
+                commit("setFlagImageUrl", flagImageUrl);
+              } else {
+                console.error("Country not found in data:", country);
+              }
+            } else {
+              console.error("Error fetching flag image URL:", data.msg);
+            }
+          } catch (error) {
+            console.error("Error fetching flag image URL:", error);
+          }
+        },        
         async fetchCountries({ commit }) {
           try {
             const response = await fetch('https://countriesnow.space/api/v0.1/countries');
@@ -53,20 +79,16 @@ const state =
           }
         },
         updateCities({ commit, state }) {
-          const selectedCountryData = state.countries.find(
-            (country) => country.country === state.selectedCountry
-          );
+          const selectedCountry = state.selectedCountry;
+          const country = state.countries.find(c => c.country === selectedCountry);
       
-          if (selectedCountryData) {
-            if (selectedCountryData.cities) {
-              commit('setCities', selectedCountryData.cities);
-            } else {
-              console.error('Cities property is undefined for the selected country.');
-            }
+          if (country) {
+            commit('setCities', country.cities);
           } else {
-            console.error('Selected country data is undefined.');
+            console.error('Selected country not found:', selectedCountry);
           }
         },
+      
         async fetchProductDetails({ commit }, productId) {
             try {
               const response = await fetch(`https://dummyjson.com/products/${productId}`);
@@ -113,9 +135,11 @@ const state =
           },
       }
    const getters= {
+        flagImageUrl: state => state.flagImageUrl,
         countries: (state) => state.countries,
         cities: (state) => state.cities,
         selectedCountry: (state) => state.selectedCountry,
+        selectedCity:(state) =>state.selectedCity,
         carts: state => state.carts,
         productDetails: state => state.productDetails,
         comments: state => state.comments,
@@ -146,7 +170,7 @@ const state =
       }
       const vuexPersist = new VuexPersistence({
         key: 'my-app-key', 
-        storage:localStorage,
+        storage: window.localStorage,
       });
       export default {
         namespaced: true,

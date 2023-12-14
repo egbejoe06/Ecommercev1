@@ -4,10 +4,18 @@
     <div class="cartmain1">
       <div class="cart-categories">
         <div class="cartc1">
-          <div :class="{ cartc4: cCard }" class="cartc3">CARD({{ carts.length }})</div>
-          <div :class="{ cartc4: cCustomer }" class="cartc3">Customer info</div>
-          <div :class="{ cartc4: cShipping }" class="cartc3">Shipping & Payment</div>
-          <div :class="{ cartc4: cProduct }" class="cartc3">Product confirmation</div>
+          <div :class="{ cartc4: cCard }" class="cartc3" @click="change1()">
+            CARD({{ carts.length }})
+          </div>
+          <div :class="{ cartc4: cCustomer }" class="cartc3" @click="change2()">
+            Customer info
+          </div>
+          <div :class="{ cartc4: cShipping }" class="cartc3" @click="change3()">
+            Shipping & Payment
+          </div>
+          <div :class="{ cartc4: cProduct }" class="cartc3" @click="change4()">
+            Product confirmation
+          </div>
         </div>
         <div class="cartc2"></div>
       </div>
@@ -76,7 +84,50 @@
               </div>
             </div>
           </div>
-          <div class="sAddress"></div>
+          <div class="customer-info">
+            <div class="ci1">Shipping Address</div>
+            <div class="ci3">
+              <span class="ci4">Country</span>
+              <span class="ci8">
+                <span>
+                  <img class="flag" v-if="flagImageUrl" :src="flagImageUrl" alt="Flag"
+                /></span>
+                <select
+                  class="ship34 ci7"
+                  v-model="selectedCountry"
+                  @change="updateSelectedCountry"
+                >
+                  <option value="">Select a country</option>
+                  <option
+                    v-for="country in countries"
+                    :value="country.country"
+                    :key="country.country"
+                  >
+                    {{ country.country }}
+                  </option>
+                </select></span
+              >
+            </div>
+            <div class="ci3">
+              <span class="ci4">State/Region</span>
+              <span class="ship36">
+                <select class="ship35" v-model="selectedCity">
+                  <option value="">Select a city</option>
+                  <option v-for="city in cities" :value="city" :key="city">
+                    {{ city }}
+                  </option>
+                </select>
+              </span>
+            </div>
+            <div class="ci3">
+              <label class="ci4">Address</label>
+              <input class="ci5 ci7" type="email" />
+            </div>
+            <div class="ci3">
+              <label class="ci4">Phone Number</label>
+              <input class="ci5 ci7" type="email" />
+            </div>
+          </div>
         </div>
         <div class="cm2">
           <div class="cm21">
@@ -231,12 +282,14 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import Header from "../components/Header.vue";
 import Footer from "../components/Footer.vue";
 export default {
   data() {
     return {
+      selectedCity: "",
+      selectedCountry: "",
       discount: false,
       gift: false,
       checkedout: true,
@@ -247,6 +300,11 @@ export default {
     };
   },
   components: { Header, Footer },
+  watch: {
+    selectedCountry(newValue) {
+      this.$store.dispatch("productdetails/fetchFlagImageUrl", newValue);
+    },
+  },
   computed: {
     siproducts() {
       const currentProductId = this.productDetails.id;
@@ -272,10 +330,59 @@ export default {
       "number",
       "productDetails",
       "carts",
+      "countries",
+      "cities",
+      "selectedCountry",
+      "selectedCity",
+      "flagImageUrl",
     ]),
     ...mapGetters("product", ["products", "isFavorite", "Images", "favoriteProducts"]),
   },
   methods: {
+    change1() {
+      this.cCard = !this.cCard;
+      if ((this.cCard = true)) {
+        this.cShipping = false;
+        this.cProduct = false;
+        this.cCustomer = false;
+      }
+    },
+    change2() {
+      this.cCustomer = !this.cCustomer;
+      if ((this.cCustomer = true)) {
+        this.cCard = false;
+        this.cProduct = false;
+        this.cShipping = false;
+      }
+    },
+    change3() {
+      this.cShipping = !this.cShipping;
+      if ((this.cShipping = true)) {
+        this.cCard = false;
+        this.cProduct = false;
+        this.cCustomer = false;
+      }
+    },
+    change4() {
+      this.cProduct = !this.cProduct;
+      if ((this.cProduct = true)) {
+        this.cCard = false;
+        this.cCustomer = false;
+        this.cShipping = false;
+      }
+    },
+    ...mapActions("productdetails", ["fetchFlagImageUrl"]),
+    updateCities() {
+      this.$store.dispatch("productdetails/updateCities");
+    },
+    async updateSelectedCountry() {
+      await this.$store.dispatch(
+        "productdetails/fetchFlagImageUrl",
+        this.selectedCountry
+      );
+      this.updateCities();
+      this.$store.commit("productdetails/setSelectedCountry", this.selectedCountry);
+    },
     checkout() {
       this.checkedout = !this.checkedout;
     },
@@ -289,7 +396,6 @@ export default {
       if (!isProductInCart) {
         this.carts.push({ ...product, Quantity, Price });
       }
-      console.log(product);
     },
     calculateNormalPrice(discountPercentage, discountPrice) {
       if (typeof discountPercentage === "number" && discountPercentage !== 0) {
@@ -317,9 +423,21 @@ export default {
       }
     },
   },
+  created() {
+    this.$store.dispatch("productdetails/fetchCountries");
+  },
+  watch: {
+    selectedCountry(newValue) {
+      this.$store.commit("productdetails/setSelectedCountry", newValue);
+    },
+  },
 };
 </script>
 <style>
+.flag {
+  width: 26px;
+  height: 26px;
+}
 .cartc4 {
   color: var(--text-color-light-primary-text, #262626);
   font-feature-settings: "clig" off, "liga" off;
@@ -477,6 +595,40 @@ export default {
 }
 .ci7 {
   width: 390px;
+}
+.ship35 {
+  display: flex;
+  width: 200px;
+  padding: 10px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 47px;
+  border: none;
+  outline: none;
+  width: 374px;
+}
+.ship36 {
+  width: 390px;
+  border-radius: 6px;
+  border: 1px solid #c4c4c4;
+}
+.ci8 {
+  display: flex;
+  padding: var(--spacing-2, 8px) var(--spacing-4, 16px);
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: var(--spacing-1, 4px);
+  border: 1px solid var(--button-stroke-stroke, #d9d9d9);
+  background: var(--background-color-white, #fff);
+}
+.ship34 {
+  display: flex;
+  padding: var(--spacing-0, 0px);
+  align-items: center;
+  gap: 264px;
+  width: 320px;
+  align-self: stretch;
+  border: none;
 }
 .cartmain1 {
   display: flex;
