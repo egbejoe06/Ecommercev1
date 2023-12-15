@@ -129,6 +129,19 @@
             </div>
           </div>
         </div>
+        <div v-show="cShipping" class="cShipping">
+          <div class="cpayment">
+            <div><span>Payment </span> <span>Please choose a payment method</span></div>
+            <div>
+              <div>
+                <div>
+                  <span><input type="checkbox" /> <label>Paypal</label></span>
+                </div>
+                <div><img src="../assets/Paypal.png" alt="" /></div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="cm2">
           <div class="cm21">
             <div class="cm22">Order Summary</div>
@@ -251,7 +264,9 @@
         </div>
       </div>
       <div class="coupon">
-        <div class="coupon1"><input type="text" placeholder="Enter Coupon Code" /></div>
+        <div class="coupon1">
+          <input type="text" placeholder="Enter Coupon Code" />
+        </div>
         <div class="coupon2">Login and Apply code</div>
       </div>
     </div>
@@ -294,8 +309,8 @@ export default {
       gift: false,
       checkedout: true,
       cCard: false,
-      cCustomer: true,
-      cShipping: false,
+      cCustomer: false,
+      cShipping: true,
       cProduct: false,
     };
   },
@@ -448,6 +463,9 @@ export default {
   line-height: 20px; /* 142.857% */
   letter-spacing: 0.5px;
   text-transform: uppercase;
+}
+.cartc3 {
+  cursor: pointer;
 }
 .cartc1 {
   display: flex;
