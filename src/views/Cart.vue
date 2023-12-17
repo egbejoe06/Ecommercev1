@@ -131,13 +131,133 @@
         </div>
         <div v-show="cShipping" class="cShipping">
           <div class="cpayment">
-            <div><span>Payment </span> <span>Please choose a payment method</span></div>
-            <div>
-              <div>
-                <div>
-                  <span><input type="checkbox" /> <label>Paypal</label></span>
+            <div class="cpayment1">
+              <span class="cpayment2">Payment </span>
+              <span class="cpayment3">Please choose a payment method</span>
+            </div>
+            <div class="cpayment4">
+              <div class="cpayment5">
+                <div class="cpayment6">
+                  <span class="cpayment61"
+                    ><div class="checkbox-wrapper cpayment61">
+                      <input type="checkbox" id="checkbox-1" class="styled-checkbox" />
+                      <label class="cpayment7" for="checkbox-1">Paypal</label>
+                    </div></span
+                  >
+                  <span class="cpayment62"
+                    ><img src="../assets/Paypal.png" alt=""
+                  /></span>
                 </div>
-                <div><img src="../assets/Paypal.png" alt="" /></div>
+              </div>
+              <div class="cpayment8">
+                PayPal is a trusted online payment platform that allows individuals and
+                businesses to securely send and receive money electronically.
+              </div>
+            </div>
+            <div class="cpayment4">
+              <div class="cpayment5">
+                <div class="cpayment6">
+                  <span class="cpayment61"
+                    ><div class="checkbox-wrapper cpayment61">
+                      <input type="checkbox" id="checkbox-2" class="styled-checkbox" />
+                      <label class="cpayment7" for="checkbox-2">Mastercard</label>
+                    </div></span
+                  >
+                  <span class="cpayment62"
+                    ><img src="../assets/Mastercard.png" alt=""
+                  /></span>
+                </div>
+              </div>
+              <div class="cpayment8">
+                Mastercard is a widely accepted credit card for online transactions
+              </div>
+            </div>
+            <div class="cpayment4">
+              <div class="cpayment5">
+                <div class="cpayment6">
+                  <span class="cpayment61"
+                    ><div class="checkbox-wrapper cpayment61">
+                      <input type="checkbox" id="checkbox-3" class="styled-checkbox" />
+                      <label class="cpayment7" for="checkbox-3">Bitcoin</label>
+                    </div></span
+                  >
+                  <span class="cpayment62"
+                    ><img src="../assets/bitcoin.png" alt=""
+                  /></span>
+                </div>
+              </div>
+              <div class="cpayment8">
+                Bitcoin is a decentralized digital currency, without a central bank or
+                single administrator.
+              </div>
+            </div>
+          </div>
+          <div class="cpayment">
+            <div class="cpayment1">
+              <span class="cpayment2">Shipping </span>
+              <span class="cpayment3"
+                >Please choose a shipping company based on your region</span
+              >
+            </div>
+            <div class="cpayment4">
+              <div class="cpayment5">
+                <div class="cpayment6">
+                  <span class="cpayment61"
+                    ><div class="checkbox-wrapper cpayment61">
+                      <input type="checkbox" id="checkbox-4" class="styled-checkbox" />
+                      <label class="cpayment7" for="checkbox-4">AUSFF</label>
+                    </div></span
+                  >
+                  <span class="cpayment62"><img src="../assets/ausff.png" alt="" /></span>
+                </div>
+              </div>
+              <div class="cpayment9">
+                <span>Delivery time: 14-21 days</span>
+                <span>Shipping cost: Free</span>
+                <span>Insurance: <span style="color: #ff2e00">Unavailable</span></span>
+              </div>
+            </div>
+            <div class="cpayment4">
+              <div class="cpayment5">
+                <div class="cpayment6">
+                  <span class="cpayment61"
+                    ><div class="checkbox-wrapper cpayment61">
+                      <input type="checkbox" id="checkbox-5" class="styled-checkbox" />
+                      <label class="cpayment7" for="checkbox-5">RaceCouriers</label>
+                    </div></span
+                  >
+                  <span class="cpayment62"
+                    ><img src="../assets/racecouriers.png" alt=""
+                  /></span>
+                </div>
+              </div>
+              <div class="cpayment9">
+                <span>Delivery time: 14-21 days</span>
+                <span>Shipping cost: $10</span>
+                <span>Insurance: <span style="color: #00a95d">Available</span></span>
+              </div>
+            </div>
+            <div class="cpayment4">
+              <div class="cpayment5">
+                <div class="cpayment6">
+                  <span class="cpayment61"
+                    ><div class="checkbox-wrapper cpayment61">
+                      <input type="checkbox" id="checkbox-6" class="styled-checkbox" />
+                      <label class="cpayment7" for="checkbox-6">TranscoCargo</label>
+                    </div></span
+                  >
+                  <span class="cpayment62"
+                    ><img
+                      style="width: 72px; height: 20.093px; flex-shrink: 0"
+                      src="../assets/23.gif"
+                      alt=""
+                  /></span>
+                </div>
+              </div>
+              <div class="cpayment9">
+                <span>Delivery time: 14-21 days</span>
+                <span>Shipping cost: $12</span>
+                <span>Insurance: <span style="color: #00a95d">Available</span></span>
               </div>
             </div>
           </div>
@@ -449,6 +569,147 @@ export default {
 };
 </script>
 <style>
+.cpayment {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-5, 20px);
+  flex: 1 0 0;
+}
+.cpayment1 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-2, 8px);
+  align-self: stretch;
+}
+.cpayment2 {
+  color: var(--text-color-light-primary-text, #262626);
+  font-family: Lato;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 25px; /* 125% */
+}
+.cpayment3 {
+  color: var(--text-color-light-secondary-text, #555);
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+}
+.cpayment4 {
+  display: flex;
+  padding: var(--spacing-3, 12px) var(--spacing-4, 16px);
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--spacing-2, 8px);
+  align-self: stretch;
+  border-radius: var(--spacing-1, 4px);
+  background: #f5f5f5;
+}
+.cpayment5 {
+  display: flex;
+  align-self: stretch;
+}
+.cpayment6 {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.cpayment62 {
+  float: right;
+  display: flex;
+  width: 73px;
+  height: 32px;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+}
+.cpayment7 {
+  margin-left: 8px;
+  color: var(--text-color-light-primary-text, #262626);
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px; /* 142.857% */
+}
+.cpayment8 {
+  margin-left: 38px;
+  color: var(--text-color-light-secondary-text, #555);
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: Lato;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  height: 62px;
+  flex: 1 0 0; /* 166.667% */
+}
+.cpayment9 {
+  color: var(--text-color-light-secondary-text, #555);
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: Lato;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  height: 62px;
+  flex: 1 0 0; /* 166.667% */
+  display: flex;
+  padding: var(--spacing-0, 0px) var(--spacing-7, 28px);
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  align-self: stretch;
+}
+.cShipping {
+  display: flex;
+  height: 501px;
+  gap: 32px var(--spacing-8, 32px);
+  flex: 1 0 0;
+  flex-wrap: wrap;
+}
+.checkbox-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-wrapper label {
+  margin-left: 8px; /* Adjust the margin to your preference */
+  cursor: pointer;
+}
+
+.styled-checkbox {
+  display: none;
+}
+
+.styled-checkbox + label {
+  position: relative;
+  padding-left: 30px; /* Adjust the padding to match the checkbox size */
+  cursor: pointer;
+  display: inline-block;
+}
+
+.styled-checkbox + label:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px; /* Adjust the width and height to match the checkbox size */
+  height: 20px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+.styled-checkbox:checked + label:before {
+  background-color: #4172dc;
+  border-color: #66bb6a;
+}
 .flag {
   width: 26px;
   height: 26px;
