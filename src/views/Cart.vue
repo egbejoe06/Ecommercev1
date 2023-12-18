@@ -135,12 +135,18 @@
               <span class="cpayment2">Payment </span>
               <span class="cpayment3">Please choose a payment method</span>
             </div>
-            <div class="cpayment4">
+            <div class="cpayment4" :class="{ cpayment63: paypal }">
               <div class="cpayment5">
                 <div class="cpayment6">
                   <span class="cpayment61"
                     ><div class="checkbox-wrapper cpayment61">
-                      <input type="checkbox" id="checkbox-1" class="styled-checkbox" />
+                      <input
+                        v-model="paypal"
+                        @click="Paypal1()"
+                        type="checkbox"
+                        id="checkbox-1"
+                        class="styled-checkbox"
+                      />
                       <label class="cpayment7" for="checkbox-1">Paypal</label>
                     </div></span
                   >
@@ -154,12 +160,18 @@
                 businesses to securely send and receive money electronically.
               </div>
             </div>
-            <div class="cpayment4">
+            <div class="cpayment4" :class="{ cpayment63: mastercard }">
               <div class="cpayment5">
                 <div class="cpayment6">
                   <span class="cpayment61"
                     ><div class="checkbox-wrapper cpayment61">
-                      <input type="checkbox" id="checkbox-2" class="styled-checkbox" />
+                      <input
+                        v-model="mastercard"
+                        @click="mastercard1()"
+                        type="checkbox"
+                        id="checkbox-2"
+                        class="styled-checkbox"
+                      />
                       <label class="cpayment7" for="checkbox-2">Mastercard</label>
                     </div></span
                   >
@@ -172,12 +184,18 @@
                 Mastercard is a widely accepted credit card for online transactions
               </div>
             </div>
-            <div class="cpayment4">
+            <div class="cpayment4" :class="{ cpayment63: bitcoin }">
               <div class="cpayment5">
                 <div class="cpayment6">
                   <span class="cpayment61"
                     ><div class="checkbox-wrapper cpayment61">
-                      <input type="checkbox" id="checkbox-3" class="styled-checkbox" />
+                      <input
+                        v-model="bitcoin"
+                        @click="bitcoin1()"
+                        type="checkbox"
+                        id="checkbox-3"
+                        class="styled-checkbox"
+                      />
                       <label class="cpayment7" for="checkbox-3">Bitcoin</label>
                     </div></span
                   >
@@ -199,12 +217,18 @@
                 >Please choose a shipping company based on your region</span
               >
             </div>
-            <div class="cpayment4">
+            <div class="cpayment4" :class="{ cpayment63: ausff }">
               <div class="cpayment5">
                 <div class="cpayment6">
                   <span class="cpayment61"
                     ><div class="checkbox-wrapper cpayment61">
-                      <input type="checkbox" id="checkbox-4" class="styled-checkbox" />
+                      <input
+                        type="checkbox"
+                        v-model="ausff"
+                        @click="ausff1()"
+                        id="checkbox-4"
+                        class="styled-checkbox"
+                      />
                       <label class="cpayment7" for="checkbox-4">AUSFF</label>
                     </div></span
                   >
@@ -217,12 +241,18 @@
                 <span>Insurance: <span style="color: #ff2e00">Unavailable</span></span>
               </div>
             </div>
-            <div class="cpayment4">
+            <div class="cpayment4" :class="{ cpayment63: racecouriers }">
               <div class="cpayment5">
                 <div class="cpayment6">
                   <span class="cpayment61"
                     ><div class="checkbox-wrapper cpayment61">
-                      <input type="checkbox" id="checkbox-5" class="styled-checkbox" />
+                      <input
+                        type="checkbox"
+                        v-model="racecouriers"
+                        @click="racecouriers1()"
+                        id="checkbox-5"
+                        class="styled-checkbox"
+                      />
                       <label class="cpayment7" for="checkbox-5">RaceCouriers</label>
                     </div></span
                   >
@@ -237,12 +267,18 @@
                 <span>Insurance: <span style="color: #00a95d">Available</span></span>
               </div>
             </div>
-            <div class="cpayment4">
+            <div class="cpayment4" :class="{ cpayment63: transcargo }">
               <div class="cpayment5">
                 <div class="cpayment6">
                   <span class="cpayment61"
                     ><div class="checkbox-wrapper cpayment61">
-                      <input type="checkbox" id="checkbox-6" class="styled-checkbox" />
+                      <input
+                        type="checkbox"
+                        v-model="transcargo"
+                        @click="transcargo1()"
+                        id="checkbox-6"
+                        class="styled-checkbox"
+                      />
                       <label class="cpayment7" for="checkbox-6">TranscoCargo</label>
                     </div></span
                   >
@@ -423,14 +459,20 @@ import Footer from "../components/Footer.vue";
 export default {
   data() {
     return {
+      paypal: false,
+      bitcoin: false,
+      mastercard: false,
+      ausff: false,
+      racecouriers: false,
+      transcargo: false,
       selectedCity: "",
       selectedCountry: "",
       discount: false,
       gift: false,
-      checkedout: true,
-      cCard: false,
+      checkedout: false,
+      cCard: true,
       cCustomer: false,
-      cShipping: true,
+      cShipping: false,
       cProduct: false,
     };
   },
@@ -474,6 +516,48 @@ export default {
     ...mapGetters("product", ["products", "isFavorite", "Images", "favoriteProducts"]),
   },
   methods: {
+    Paypal1() {
+      this.paypal = !this.paypal;
+      if (this.paypal) {
+        this.mastercard = false;
+        this.bitcoin = false;
+      }
+    },
+    mastercard1() {
+      this.mastercard = !this.mastercard;
+      if (this.mastercard) {
+        this.paypal = false;
+        this.bitcoin = false;
+      }
+    },
+    bitcoin1() {
+      this.bitcoin = !this.bitcoin;
+      if (this.bitcoin) {
+        this.mastercard = false;
+        this.paypal = false;
+      }
+    },
+    ausff1() {
+      this.ausff = !this.ausff;
+      if (this.ausff) {
+        this.racecouriers = false;
+        this.transcargo = false;
+      }
+    },
+    racecouriers1() {
+      this.racecouriers = !this.racecouriers;
+      if (this.racecouriers) {
+        this.ausff = false;
+        this.transcargo = false;
+      }
+    },
+    transcargo1() {
+      this.transcargo = !this.transcargo;
+      if (this.transcargo) {
+        this.racecouriers = false;
+        this.ausff = false;
+      }
+    },
     change1() {
       this.cCard = !this.cCard;
       if ((this.cCard = true)) {
@@ -569,6 +653,9 @@ export default {
 };
 </script>
 <style>
+.cpayment63 {
+  background: #e9e9e9 !important;
+}
 .cpayment {
   display: flex;
   flex-direction: column;
@@ -815,7 +902,7 @@ export default {
   padding-top: 50px;
   padding-bottom: 40px;
   align-items: flex-start;
-  gap: 100px;
+  gap: 50px;
 }
 .cCustomer {
   display: flex;
