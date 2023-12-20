@@ -10,17 +10,21 @@ const state =
         selectedCountry: '',
         selectedCity: '',
         flagImageUrl: "",
+        selectedCountryDialCode: '',
       }
      const mutations = {
+      setDialCode(state, dialCode) {
+        state.selectedCountryDialCode = dialCode;
+      },
       setFlagImageUrl(state, flagImageUrl) {
         state.flagImageUrl = flagImageUrl;
       },
       setCountries(state, countries) {
-        state.countries = countries;      
+        state.countries = countries;    
       },
       setCities(state, cities) {
-  state.cities = cities;
-},
+       state.cities = cities;
+      },
       setSelectedCountry(state, selectedCountry) {
         state.selectedCountry = selectedCountry;
       },
@@ -41,7 +45,25 @@ const state =
           },
         }
       const actions= {
-        
+        async fetchDialCode({ commit, state }) {
+          try {
+            const response = await fetch(`https://countriesnow.space/api/v0.1/countries/info?returns=currency,flag,unicodeFlag,dialCode`);
+            const data = await response.json();
+            if (!data.error) {
+              const countryData = data.data.find((item) => item.name === state.selectedCountry);
+              if (countryData) {
+                const dialCode = countryData.dialCode;
+                commit("setDialCode", dialCode);
+              } else {
+                console.error("Country not found in data:", state.selectedCountry);
+              }
+            } else {
+              console.error("Error fetching dial code:", data.msg);
+            }
+          } catch (error) {
+            console.error("Error fetching dial code:", error);
+          }
+        },
         async fetchFlagImageUrl({ commit }, country) {
           try {
             const response = await fetch('https://countriesnow.space/api/v0.1/countries/flag/images/');

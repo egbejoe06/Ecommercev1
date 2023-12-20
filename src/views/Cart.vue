@@ -70,16 +70,16 @@
             <div class="ci2">
               <div class="ci3">
                 <label class="ci4">E-mail</label>
-                <input class="ci5 ci7" type="email" />
+                <input v-model="Email" class="ci5 ci7" type="email" />
               </div>
               <div class="ci6">
                 <div class="ci3">
                   <label class="ci4">First Name</label>
-                  <input class="ci5" type="text" />
+                  <input v-model="Firstname" class="ci5" type="text" />
                 </div>
                 <div class="ci3">
                   <label class="ci4">Last Name</label>
-                  <input class="ci5" type="text" />
+                  <input v-model="Lastname" class="ci5" type="text" />
                 </div>
               </div>
             </div>
@@ -121,11 +121,11 @@
             </div>
             <div class="ci3">
               <label class="ci4">Address</label>
-              <input class="ci5 ci7" type="email" />
+              <input v-model="address" class="ci5 ci7" type="email" />
             </div>
             <div class="ci3">
               <label class="ci4">Phone Number</label>
-              <input class="ci5 ci7" type="email" />
+              <input v-model="Phonenumber" class="ci5 ci7 ci9" type="number" />
             </div>
           </div>
         </div>
@@ -298,6 +298,90 @@
             </div>
           </div>
         </div>
+        <div v-show="cProduct" class="cProduct">
+          <div class="cproduct1">Confirmation</div>
+          <div class="cproduct2">
+            <div class="cproduct3">
+              <div class="cproduct31">Shopping items</div>
+              <div class="cproduct32">
+                <div class="cproduct33" v-for="cart in carts">
+                  <div class="cproduct331">
+                    <div><img class="cproduct332" :src="cart.thumbnail" alt="" /></div>
+                    <div class="cproduct333">{{ cart.title }}</div>
+                  </div>
+                  <div class="cproduct334">
+                    <span class="cproduct335">${{ cart.Price }}</span>
+                    <span class="cproduct336">x{{ cart.Quantity }}</span>
+                  </div>
+                  <div class="cproduct337">${{ calculateTotal(cart).toFixed(2) }}</div>
+                </div>
+              </div>
+            </div>
+            <div class="cproduct34"></div>
+            <div class="cproduct4">
+              <div class="cproduct31">Payment method</div>
+              <div v-if="paypal" class="cproduct41">
+                <span class="cproduct42">Paypal</span>
+                <span class="cpayment62"><img src="../assets/Paypal.png" alt="" /></span>
+              </div>
+              <div v-if="mastercard" class="cproduct41">
+                <span class="cproduct42">Mastercard</span>
+                <span class="cpayment62"
+                  ><img src="../assets/Mastercard.png" alt=""
+                /></span>
+              </div>
+              <div v-if="bitcoin" class="cproduct41">
+                <span class="cproduct42">Bitcoin</span>
+                <span class="cpayment62"><img src="../assets/bitcoin.png" alt="" /></span>
+              </div>
+            </div>
+            <div class="cproduct34"></div>
+            <div class="cproduct4">
+              <div class="cproduct31">Shipping company</div>
+              <div v-if="ausff" class="cproduct41">
+                <span class="cproduct42">AUSFF</span>
+                <span class="cpayment62"><img src="../assets/ausff.png" alt="" /></span>
+              </div>
+              <div v-if="racecouriers" class="cproduct41">
+                <span class="cproduct42">RaceCouriers</span>
+                <span class="cpayment62"
+                  ><img src="../assets/racecouriers.png" alt=""
+                /></span>
+              </div>
+              <div v-if="transcargo" class="cproduct41">
+                <span class="cproduct42">TranscoCargo</span>
+                <span class="cpayment62"
+                  ><img
+                    style="width: 72px; height: 20.093px; flex-shrink: 0"
+                    src="../assets/23.gif"
+                    alt=""
+                /></span>
+              </div>
+            </div>
+            <div class="cproduct4">
+              <div class="cproduct5">
+                <span class="cproduct51">Name</span
+                ><span class="cproduct52">{{ Lastname }} {{ Firstname }}</span>
+              </div>
+              <div class="cproduct5">
+                <span class="cproduct51">Country</span
+                ><span class="cproduct52">{{ selectedCountry }}</span>
+              </div>
+              <div class="cproduct5">
+                <span class="cproduct51">Address</span
+                ><span class="cproduct52">{{ address }}</span>
+              </div>
+              <div class="cproduct5">
+                <span class="cproduct51">City</span
+                ><span class="cproduct52">{{ selectedCity }}</span>
+              </div>
+              <div class="cproduct5">
+                <span class="cproduct51">Phone</span
+                ><span class="cproduct52">{{ Phonenumber }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="cm2">
           <div class="cm21">
             <div class="cm22">Order Summary</div>
@@ -459,6 +543,11 @@ import Footer from "../components/Footer.vue";
 export default {
   data() {
     return {
+      Email: "",
+      Firstname: "",
+      Lastname: "",
+      address: "",
+      Phonenumber: "",
       paypal: false,
       bitcoin: false,
       mastercard: false,
@@ -483,6 +572,10 @@ export default {
     },
   },
   computed: {
+    selectedCountryDialCode() {
+      const dialCode = this.$store.state.productdetails.selectedCountryDialCode;
+      return dialCode;
+    },
     siproducts() {
       const currentProductId = this.productDetails.id;
       return this.products.filter((product) => {
@@ -644,6 +737,7 @@ export default {
   },
   created() {
     this.$store.dispatch("productdetails/fetchCountries");
+    this.$store.dispatch("productdetails/fetchDialCode");
   },
   watch: {
     selectedCountry(newValue) {
@@ -760,13 +854,195 @@ export default {
   flex: 1 0 0;
   flex-wrap: wrap;
 }
+.cProduct {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-8, 32px);
+  flex: 1 0 0;
+}
+.cproduct1 {
+  color: var(--base-grey-100, #262d33);
+  font-family: Lato;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 25px; /* 125% */
+}
+.cproduct2 {
+  display: flex;
+  padding: var(--spacing-6, 24px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-5, 20px);
+  align-self: stretch;
+  background: var(--background-color-color, #f5f5f5);
+}
+.cproduct3 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-3, 12px);
+  align-self: stretch;
+}
+.cproduct31 {
+  color: var(--base-grey-85, #4b5157);
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+}
+.cproduct32 {
+  display: flex;
+  padding: var(--spacing-0, 0px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-5, 20px);
+  align-self: stretch;
+}
+.cproduct33 {
+  display: flex;
+  padding: var(--spacing-0, 0px);
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  row-gap: var(--spacing-4, 16px);
+  align-self: stretch;
+  flex-wrap: wrap;
+}
+.cproduct34 {
+  border-radius: var(--spacing-0, 0px);
+  background: var(--button-stroke-stroke, #d9d9d9);
+  width: 100%;
+  height: var(--spacing-0, 1px);
+}
+.cproduct4 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-1, 4px);
+  align-self: stretch;
+}
+.cproduct5 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  row-gap: 340px;
+  align-self: stretch;
+  flex-wrap: wrap;
+}
+.cproduct51 {
+  color: var(--text-color-light-secondary-text, #555);
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+}
+.cproduct52 {
+  color: var(--text-color-light-primary-text, #262626);
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+}
+.cproduct41 {
+  display: flex;
+  height: 32px;
+  justify-content: flex-end;
+  align-items: center;
+  align-content: center;
+  align-self: stretch;
+  flex-wrap: wrap;
+}
+.cproduct42 {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-2, 8px);
+  flex: 1 0 0;
+  color: var(--text-color-light-primary-text, #262626);
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px; /* 142.857% */
+}
+.cproduct331 {
+  display: flex;
+  width: 350px;
+  padding: var(--spacing-0, 0px);
+  align-items: center;
+  align-content: center;
+  gap: 16px var(--spacing-4, 16px);
+  flex-wrap: wrap;
+}
+.cproduct332 {
+  width: 58px;
+  height: 70px;
+  border-radius: var(--spacing-0, 10px);
+  border-top: 1px solid var(--button-stroke-stroke, #d9d9d9);
+  border-right: var(--spacing-0, 1px) solid var(--button-stroke-stroke, #d9d9d9);
+  border-bottom: var(--spacing-0, 1px) solid var(--button-stroke-stroke, #d9d9d9);
+  border-left: var(--spacing-0, 1px) solid var(--button-stroke-stroke, #d9d9d9);
+  background: lightgray 0px 0.693px / 100% 124.182% no-repeat;
+}
+.cproduct333 {
+  color: var(--text-color-light-primary-text, #262626);
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px; /* 142.857% */
+}
+.cproduct334 {
+  display: flex;
+  width: 70px;
+  padding: var(--spacing-0, 0px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-1, 4px);
+}
+.cproduct335 {
+  align-self: stretch;
+  color: var(--text-color-light-secondary-text, #555);
+  text-align: right;
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+}
+.cproduct336 {
+  align-self: stretch;
+  color: var(--base-grey-85, #4b5157);
+  text-align: right;
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+}
+.cproduct337 {
+  width: 70px;
+  color: var(--text-color-light-secondary-text, #555);
+  text-align: right;
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+}
 .checkbox-wrapper {
   display: flex;
   align-items: center;
 }
 
 .checkbox-wrapper label {
-  margin-left: 8px; /* Adjust the margin to your preference */
+  margin-left: 8px;
   cursor: pointer;
 }
 
@@ -961,6 +1237,13 @@ export default {
 }
 .ci7 {
   width: 390px;
+}
+.ci9::-webkit-inner-spin-button,
+.ci9::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+.ci9 {
+  -moz-appearance: textfield;
 }
 .ship35 {
   display: flex;
