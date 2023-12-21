@@ -151,6 +151,7 @@ export default {
   },
   created() {
     this.$store.dispatch("product/fetchProduct");
+    this.searchQuery = this.$store.getters["product/search"] || "";
   },
   computed: {
     ...mapGetters("product", [
@@ -159,6 +160,7 @@ export default {
       "Images",
       "filteredProducts",
       "favoriteProducts",
+      "search",
     ]),
     filteredProducts() {
       return this.products.filter((product) => {

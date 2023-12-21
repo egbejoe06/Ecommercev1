@@ -895,7 +895,7 @@ export default {
 }
 .mn23 {
   display: flex;
-  width: 163px;
+  width: 165px;
   height: 56px;
   padding: 16px 32px;
   justify-content: center;

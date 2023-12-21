@@ -7,13 +7,22 @@
       </router-link>
     </div>
     <div class="search">
-      <input type="text" placeholder="search products" />
+      <input v-model="searched" type="text" placeholder="search products" />
       <div class="options">
-        <select id="">
-          <option value="All categoreies">All categoreies</option>
+        <select v-model="searchCategories">
+          <option value="All categories">All categories</option>
+          <option value="Women">Women</option>
+          <option value="Men">Men</option>
+          <option value="Home & Furniture">Home & Furniture</option>
+          <option value="Supermarket">Supermarkets</option>
+          <option value="Cosmetics">Cosmetics</option>
+          <option value="Shoe & Bag">Shoe & Bag</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Sports and Outdoors">Sports and Outdoors</option>
+          <option value="Best sellers">Best Sellers</option>
         </select>
       </div>
-      <div>
+      <div @click="searchCategory()">
         <img src="../assets/Search.svg" alt="" />
       </div>
     </div>
@@ -89,6 +98,12 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
+  data() {
+    return {
+      searchCategories: "",
+      searched: "",
+    };
+  },
   computed: {
     ...mapGetters("productdetails", [
       "total",
@@ -97,6 +112,25 @@ export default {
       "productDetails",
       "carts",
     ]),
+    ...mapGetters("product", ["products"]),
+  },
+  methods: {
+    searchCategory() {
+      if (this.searchCategories && this.searched) {
+        const isSearchInProducts = this.products.some((product) =>
+          product.title.toLowerCase().includes(this.searched.toLowerCase())
+        );
+        if (isSearchInProducts) {
+          this.$store.dispatch("product/setSearchQuery", this.searched);
+          this.$router.push({
+            name: this.searchCategories,
+            query: { search: this.searched },
+          });
+        } else {
+          this.$router.push({ name: "Notfound", params: { catchAll: this.searched } });
+        }
+      }
+    },
   },
 };
 </script>

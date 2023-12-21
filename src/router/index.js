@@ -40,7 +40,7 @@ const routes = [
   },
   {
     path: '/Products',
-    name: 'Products',
+    name: 'All categories',
     component: Products
   },
   {
@@ -55,7 +55,7 @@ const routes = [
   },
   {
     path: '/Home&Furniture',
-    name: 'Furniture',
+    name: 'Home & Furniture',
     component: Furniture
   },
   {
@@ -70,7 +70,7 @@ const routes = [
   },
   {
     path: '/Shoe&Bag',
-    name: 'Shoe&Bag',
+    name: 'Shoe & Bag',
     component: Shoe
   },
   {
@@ -80,12 +80,12 @@ const routes = [
   },
   {
     path: '/Outdoor',
-    name: 'Outdoor',
+    name: 'Sports and Outdoors',
     component: Outdoor
   },
   {
     path: '/Bestsellers',
-    name: 'Best',
+    name: 'Best sellers',
     component: Best
   },
   {

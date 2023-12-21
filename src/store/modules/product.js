@@ -5,8 +5,12 @@ const state =
         Images: [],
         isFavorite: [],
         products: [],
+        searchQuery: "",
       }
      const mutations = {
+      SET_SEARCH_QUERY(state, searchQuery) {
+        state.searchQuery = searchQuery;
+      },
         setProduct(state, { data }) {
             state.products = data.products;
             state.Images = {};
@@ -27,6 +31,9 @@ const state =
           },
         }
       const actions= {
+        setSearchQuery({ commit }, searchQuery) {
+          commit("SET_SEARCH_QUERY", searchQuery);
+        },
         async fetchProduct({ commit }) {
             const skip = 0;
             const limit = 100;
@@ -47,6 +54,7 @@ const state =
       }
 
    const getters= {
+        search: (state) => state.searchQuery,
         products: state => state.products,
         isFavorite: state => state.isFavorite,
         Images: state => state.Images,
