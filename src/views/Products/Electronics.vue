@@ -152,7 +152,9 @@ export default {
   },
   created() {
     this.$store.dispatch("product/fetchProduct");
-    this.searchQuery = this.$store.getters["product/search"] || "";
+    if (this.search.length > 2) {
+      this.searchQuery = this.$store.getters["product/search"] || "";
+    }
   },
   computed: {
     ...mapGetters("product", [

@@ -22,7 +22,7 @@
           <option value="Best sellers">Best Sellers</option>
         </select>
       </div>
-      <div @click="searchCategory()">
+      <div style="cursor: pointer" @click="searchCategory()">
         <img src="../assets/Search.svg" alt="" />
       </div>
     </div>
@@ -41,7 +41,7 @@
   </div>
   <div class="header2">
     <div class="cate">
-      <div class="categories">
+      <div class="categories" @click="showHeader3">
         <div><img src="../assets/categories.svg" alt="" /></div>
         <div class="category">Categories</div>
       </div>
@@ -94,13 +94,17 @@
       </div>
     </div>
   </div>
+  <div class="header3" v-show="header3"><Menu /></div>
 </template>
 <script>
 import { mapGetters } from "vuex";
+import Menu from "../components/Menu.vue";
 export default {
+  components: { Menu },
   data() {
     return {
-      searchCategories: "",
+      header3: false,
+      searchCategories: "All categories",
       searched: "",
     };
   },
@@ -115,6 +119,9 @@ export default {
     ...mapGetters("product", ["products"]),
   },
   methods: {
+    showHeader3() {
+      this.header3 = !this.header3;
+    },
     searchCategory() {
       if (this.searchCategories && this.searched) {
         const isSearchInProducts = this.products.some((product) =>
@@ -135,8 +142,58 @@ export default {
 };
 </script>
 <style>
-.cate211 {
-  display: flex;
-  gap: 5px;
+.header3 {
+  position: relative;
+  z-index: 1;
+  left: 50px;
+}
+.header3 .menu {
+  background: #f5f5f5;
+  flex-direction: column;
+  position: absolute;
+  z-index: 1;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 40px;
+}
+.header3 .menu .dp1:hover .dropdown {
+  top: 10px;
+  background: #e9e9e9;
+  z-index: 2;
+}
+.header3 .menu .dp2:hover .dropdown {
+  top: 10px;
+  left: 150px;
+  background: #e9e9e9;
+}
+.header3 .menu .dp4:hover .dropdown {
+  top: 10px;
+  left: 150px;
+  background: #e9e9e9;
+}
+.header3 .menu .dp5:hover .dropdown {
+  top: 10px;
+  left: 150px;
+  background: #e9e9e9;
+}
+.header3 .menu .dp6:hover .dropdown {
+  top: 10px;
+  left: 150px;
+  background: #e9e9e9;
+}
+.header3 .menu .dp7:hover .dropdown {
+  top: 10px;
+  left: 150px;
+  background: #e9e9e9;
+}
+.header3 .menu .dp8:hover .dropdown {
+  top: 10px;
+  left: 150px;
+  background: #e9e9e9;
+}
+.header3 .menu .dp9:hover .dropdown {
+  top: 10px;
+  left: 150px;
+  background: #e9e9e9;
 }
 </style>

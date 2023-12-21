@@ -460,6 +460,10 @@
 export default {};
 </script>
 <style>
+.cate211 {
+  display: flex;
+  gap: 5px;
+}
 .menu {
   display: flex;
   padding: var(--spacing-4, 16px) 90px;

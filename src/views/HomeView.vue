@@ -374,6 +374,7 @@ a {
   padding: var(--spacing-0, 0px);
   align-items: center;
   gap: var(--spacing-1, 4px);
+  cursor: pointer;
   border-radius: var(--spacing-0, 0px);
 }
 .category {
