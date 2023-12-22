@@ -33,16 +33,18 @@
           >
         </div>
         <div class="fsales">
-          <div v-for="fsale in fsales" class="fsales1">
+          <div v-for="fsale in flashsales.slice(0, 4)" class="fsales1">
             <div class="fs1">
               <div class="dotd">{{ fsale.text }}</div>
               <div class="timer">{{ formatCountdown(fsale.countdown) }}</div>
               <div class="fs11">{{ fsale.hour }}:{{ fsale.min }}:{{ fsale.sec }}</div>
             </div>
-            <div><img :src="fsale.img" alt="" /></div>
+            <div class="fs41">
+              <img class="fs4" :src="fsale.thumbnail" alt="" />
+            </div>
             <div class="fs2">
-              <div class="fs21">{{ fsale.text1 }}</div>
-              <div class="fs22">{{ fsale.text2 }}</div>
+              <div class="fs21">{{ fsale.title }}</div>
+              <div class="fs22">{{ fsale.description }}</div>
               <div>
                 <div>
                   <img src="../assets/star.svg" alt="" /><img
@@ -52,13 +54,15 @@
                     src="../assets/star.svg"
                     alt=""
                   />
-                  (54)
+                  ({{ fsale.stock }})
                 </div>
               </div>
               <div class="fs3">
-                <div class="fs31">{{ fsale.price }}</div>
-                <div class="fs32">{{ fsale.price1 }}</div>
-                <div class="fs33">{{ fsale.discount }}</div>
+                <div class="fs31">
+                  ${{ calculateNormalPrice(fsale.discountPercentage, fsale.price) }}
+                </div>
+                <div class="fs32">${{ fsale.price }}</div>
+                <div class="fs33">-{{ fsale.discountPercentage }}%</div>
               </div>
             </div>
           </div>
@@ -232,6 +236,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 import Menu from "../components/Menu.vue";
 import Header from "../components/Header.vue";
 import Footer from "../components/Footer.vue";
@@ -280,12 +285,6 @@ export default {
           hour: "hour",
           min: "min",
           sec: "sec",
-          img: "../src/assets/photobag.png",
-          text1: "Tonny Black",
-          text2: "Shoulder bag-White-Plain",
-          price: "$69.99",
-          price1: "$129.99",
-          discount: "-40%",
           countdown: 80020,
           initialCountdown: 45232,
         },
@@ -295,12 +294,6 @@ export default {
           hour: "hour",
           min: "min",
           sec: "sec",
-          img: "../src/assets/photoshoe.png",
-          text1: "Reebok",
-          text2: "Women’s Powder sneakers",
-          price: "$112.02",
-          price1: "$129.99",
-          discount: "-40%",
           countdown: 78392,
           initialCountdown: 45232,
         },
@@ -310,12 +303,6 @@ export default {
           hour: "hour",
           min: "min",
           sec: "sec",
-          img: "../src/assets/photobag2.png",
-          text1: "Patso",
-          text2: "Shoulder bag-Pink-Plain",
-          price: "$69.99",
-          price1: "$129.99",
-          discount: "-40%",
           countdown: 35232,
           initialCountdown: 45232,
         },
@@ -325,11 +312,6 @@ export default {
           hour: "hour",
           min: "min",
           sec: "sec",
-          img: "../src/assets/photoshoe2.png",
-          text1: "Sketchers",
-          text2: "Sport-shoe 2102",
-          price: "$80.00",
-          price1: "$129.99",
           discount: "-40%",
           countdown: 45232,
           initialCountdown: 45232,
@@ -337,7 +319,57 @@ export default {
       ],
     };
   },
+  created() {
+    this.$store.dispatch("product/fetchProduct");
+  },
+  computed: {
+    flashsales() {
+      const minLength = Math.min(this.shuffledProducts.length, this.fsales.length);
+
+      return Array.from({ length: minLength }, (_, index) => ({
+        ...this.shuffledProducts[index],
+        ...this.fsales[index],
+      }));
+    },
+    ...mapGetters("product", [
+      "products",
+      "isFavorite",
+      "Images",
+      "filteredProducts",
+      "favoriteProducts",
+      "search",
+    ]),
+    shuffledProducts() {
+      const shuffledArray = this.shuffleArray([...this.products]);
+
+      return shuffledArray;
+    },
+  },
   methods: {
+    calculateNormalPrice(discountPercentage, discountPrice) {
+      if (typeof discountPercentage === "number" && discountPercentage !== 0) {
+        const normalPrice = discountPrice - (discountPercentage / 100) * discountPrice;
+        return normalPrice.toFixed(2);
+      } else {
+        return discountPrice.toFixed(2);
+      }
+    },
+    shuffleArray(array) {
+      let currentIndex = array.length;
+      let randomIndex;
+
+      while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        [array[currentIndex], array[randomIndex]] = [
+          array[randomIndex],
+          array[currentIndex],
+        ];
+      }
+
+      return array;
+    },
     formatCountdown(seconds) {
       const hours = Math.floor(seconds / 3600);
       const minutes = Math.floor((seconds % 3600) / 60);
@@ -535,6 +567,19 @@ export default {
   gap: 20px var(--spacing-5, 20px);
   align-self: stretch;
   flex-wrap: wrap;
+}
+.fs4 {
+  width: 241px;
+  height: 129px;
+}
+.fs41 {
+  display: flex;
+  height: 162px;
+  padding: var(--spacing-0, 17px) 30px var(--spacing-0, 16px) -5px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  align-self: stretch;
 }
 .main4 .fs33 {
   color: var(--text-color-light-text-off-proces, #ff2e00);
@@ -745,6 +790,10 @@ export default {
   font-style: normal;
   font-weight: 800;
   line-height: 20px; /* 125% */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
 }
 .fs22 {
   color: var(--text-color-light-secondary-text, #555);
@@ -754,6 +803,10 @@ export default {
   font-style: normal;
   font-weight: 400;
   line-height: 20px; /* 166.667% */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
 }
 .fs2 {
   display: flex;
