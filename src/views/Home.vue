@@ -853,6 +853,7 @@ export default {
   align-self: stretch;
 }
 .main11 {
+  position: relative;
   display: flex;
   height: 320px;
   justify-content: flex-end;
@@ -930,6 +931,7 @@ export default {
   background: var(--background-color-white, #fff);
 }
 .mn26 {
+  width: 180px;
   color: var(--text-color-light-primary-text, #262626);
   text-align: right;
   font-feature-settings: "clig" off, "liga" off;
@@ -977,6 +979,6 @@ export default {
   align-items: center;
   position: absolute;
   left: 433px;
-  bottom: 148px;
+  bottom: 85px;
 }
 </style>

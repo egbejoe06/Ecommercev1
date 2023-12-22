@@ -127,7 +127,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
 export default {
@@ -152,9 +152,6 @@ export default {
   },
   created() {
     this.$store.dispatch("product/fetchProduct");
-    if (this.search.length > 2) {
-      this.searchQuery = this.$store.getters["product/search"] || "";
-    }
   },
   computed: {
     ...mapGetters("product", [
@@ -170,7 +167,7 @@ export default {
         const productPrice = parseFloat(product.price);
         const titleMatches = product.title
           .toLowerCase()
-          .includes(this.searchQuery.toLowerCase());
+          .includes(this.searchQuery.toLowerCase() || this.search.toLowerCase());
         const category = product.category.toLowerCase();
 
         const issmartphones = category.includes("smartphones");
@@ -200,8 +197,15 @@ export default {
       });
     },
   },
+  beforeRouteLeave(to, from, next) {
+    // Assuming you have access to the Vuex store via `this.$store`
+    this.$store.dispatch("product/resetSearchQuery");
+    console.log(this.search);
+    next();
+  },
 
   methods: {
+    ...mapActions("product", ["setSearchQuery"]),
     toggleFavorite(productId) {
       this.$store.dispatch("product/toggleProductFavorite", productId);
     },

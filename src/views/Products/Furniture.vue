@@ -153,7 +153,11 @@ export default {
   },
   created() {
     this.$store.dispatch("product/fetchProduct");
-    this.searchQuery = this.$store.getters["product/search"] || "";
+  },
+  beforeRouteLeave(to, from, next) {
+    this.$store.dispatch("product/resetSearchQuery");
+    console.log(this.search);
+    next();
   },
   computed: {
     ...mapGetters("product", [
@@ -169,7 +173,7 @@ export default {
         const productPrice = parseFloat(product.price);
         const titleMatches = product.title
           .toLowerCase()
-          .includes(this.searchQuery.toLowerCase());
+          .includes(this.searchQuery.toLowerCase() || this.search.toLowerCase());
         const category = product.category.toLowerCase();
 
         const isFurniture = category.includes("furniture");

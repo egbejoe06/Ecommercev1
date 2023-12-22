@@ -97,7 +97,7 @@
   <div class="header3" v-show="header3"><Menu /></div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import Menu from "../components/Menu.vue";
 export default {
   components: { Menu },
@@ -118,7 +118,11 @@ export default {
     ]),
     ...mapGetters("product", ["products"]),
   },
+  beforeDestroy() {
+    this.setSearchQuery("");
+  },
   methods: {
+    ...mapActions("product", ["setSearchQuery", "resetSearchQuery"]),
     showHeader3() {
       this.header3 = !this.header3;
     },
@@ -133,6 +137,7 @@ export default {
             name: this.searchCategories,
             query: { search: this.searched },
           });
+          //this.resetSearchQuery();
         } else {
           this.$router.push({ name: "Notfound", params: { catchAll: this.searched } });
         }
@@ -155,6 +160,8 @@ export default {
   align-items: flex-start;
   gap: 20px;
   padding: 40px;
+  width: 212px;
+  left: -49px;
 }
 .header3 .menu .dp1:hover .dropdown {
   top: 10px;

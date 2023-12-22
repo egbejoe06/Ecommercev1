@@ -11,6 +11,9 @@ const state =
       SET_SEARCH_QUERY(state, searchQuery) {
         state.searchQuery = searchQuery;
       },
+      RESET_SEARCH_QUERY(state) {
+        state.searchQuery = "";
+      },
         setProduct(state, { data }) {
             state.products = data.products;
             state.Images = {};
@@ -33,6 +36,9 @@ const state =
       const actions= {
         setSearchQuery({ commit }, searchQuery) {
           commit("SET_SEARCH_QUERY", searchQuery);
+        },
+        resetSearchQuery({ commit }) {
+          commit("RESET_SEARCH_QUERY");
         },
         async fetchProduct({ commit }) {
             const skip = 0;
@@ -58,7 +64,6 @@ const state =
         products: state => state.products,
         isFavorite: state => state.isFavorite,
         Images: state => state.Images,
-        searchQuery: state => state.searchQuery,
         selectedCategory: state => state.selectedCategory,
         favoriteProducts: (state) => {
           return state.products.filter((product) => state.isFavorite[product.id]);

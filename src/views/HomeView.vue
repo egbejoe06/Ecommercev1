@@ -4,7 +4,7 @@
     <div class="b2w">
       <router-link to="/">
         <div class="b2w1">
-          <div><img src="../assets/arrow-left.svg" alt="" /></div>
+          <div class="b2w3"><img src="../assets/arrow-left.svg" alt="" /></div>
           <div class="b2w2">Back to the website</div>
         </div>
       </router-link>
@@ -57,6 +57,14 @@ export default {
 };
 </script>
 <style>
+.b2w3 {
+  display: flex;
+  width: 19px;
+  height: 20px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .home {
   position: relative;
 }
@@ -217,7 +225,7 @@ export default {
   background: var(--background-color-footer, #d1e2eb);
 }
 .b2w2 {
-  width: 141px;
+  width: 155px;
   height: 34px;
   flex-shrink: 0;
   color: var(--text-color-light-secondary-text, #555);
