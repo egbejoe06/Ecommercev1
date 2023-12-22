@@ -162,6 +162,38 @@ export default {
   padding: 40px;
   width: 212px;
   left: -49px;
+  transform-origin: top center;
+  animation: rotateZ 300ms ease-in-out forwards;
+}
+.header3 .menu .div {
+  transform-origin: top center;
+  animation: rotateZ 300ms ease-in-out forwards;
+}
+@keyframes rotateZ {
+  0% {
+    transform: rotateY(90deg);
+  }
+  80% {
+    transform: rotateY(-10deg);
+  }
+  100% {
+    transform: rotateY(0);
+  }
+}
+.header3 .menu .dropdown {
+  animation: growOut 300ms ease-in-out forwards;
+  transform-origin: top center;
+}
+@keyframes growOut {
+  0% {
+    transform: rotateX(-90deg);
+  }
+  70% {
+    transform: rotateX(20deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+  }
 }
 .header3 .menu .dp1:hover .dropdown {
   top: 10px;

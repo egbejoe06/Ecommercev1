@@ -496,6 +496,18 @@ export default {};
   border-radius: 8px;
   background: var(--background-color-white, #fff);
   display: none;
+  animation: rotateMenu 0.5s ease-in-out forwards;
+}
+@keyframes rotateMenu {
+  0% {
+    transform: perspective(600px) rotateX(-90deg);
+  }
+  70% {
+    transform: perspective(600px) rotateX(20deg);
+  }
+  100% {
+    transform: perspective(600px) rotateX(0deg);
+  }
 }
 .dropdown1 {
   display: flex;
