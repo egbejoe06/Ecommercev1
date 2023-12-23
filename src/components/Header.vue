@@ -94,20 +94,43 @@
                   </div>
                 </div></router-link
               >
+              <div class="cate5"></div>
             </div>
           </div>
         </div>
       </div>
-      <div class="cate21">
-        <div>
-          <router-link to="/Cart">
-            <div class="cate211">
-              <div><img src="../assets/Card.svg" alt="" /></div>
-              <div class="cate22">Card</div>
-            </div></router-link
-          >
+      <div class="cate42">
+        <div class="cate21">
+          <div>
+            <router-link to="/Cart">
+              <div class="cate211">
+                <div><img src="../assets/Card.svg" alt="" /></div>
+                <div class="cate22">Card</div>
+              </div></router-link
+            >
+          </div>
+          <div class="cate23">{{ carts.length }}</div>
         </div>
-        <div class="cate23">{{ carts.length }}</div>
+        <div class="cate4">
+          <div v-for="fav in carts">
+            <router-link :to="{ name: 'Productdetails', params: { id: fav.id } }">
+              <div class="cate41">
+                <div>
+                  <img class="cate43" :src="fav.thumbnail" alt="" />
+                </div>
+                <div class="cate44">
+                  <span class="cate45">{{ fav.title }}</span
+                  ><span class="cate46">${{ fav.price }}</span>
+                </div>
+              </div></router-link
+            >
+            <div class="cate5"></div>
+          </div>
+          <div class="cate51">
+            <span class="cate52">Total</span><span class="cate53">${{ Total1 }}</span>
+          </div>
+          <router-link to="/Cart"> <div class="cate54">View Bag</div></router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -130,6 +153,13 @@ export default {
     };
   },
   computed: {
+    Total1() {
+      const baseTotal = this.calculatedTotals.reduce((acc, total) => acc + total, 0);
+      return baseTotal;
+    },
+    calculatedTotals() {
+      return this.carts.map((cart) => cart.Price * cart.Quantity);
+    },
     ...mapGetters("productdetails", [
       "total",
       "normalPrice",
@@ -158,7 +188,6 @@ export default {
             name: this.searchCategories,
             query: { search: this.searched },
           });
-          //this.resetSearchQuery();
         } else {
           this.$router.push({ name: "Notfound", params: { catchAll: this.searched } });
         }
@@ -168,11 +197,61 @@ export default {
 };
 </script>
 <style>
+.cate54 {
+  color: var(--base-white, #fff);
+  text-align: center;
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px; /* 142.857% */
+  display: flex;
+  padding: var(--spacing-2, 8px) var(--spacing-8, 32px);
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: var(--spacing-1, 4px);
+  background: var(--button-default, #4172dc);
+  width: 100%;
+}
+.cate51 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8, 32px);
+}
+.cate52 {
+  color: var(--text-color-light-secondary-text, #555);
+  text-align: right;
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px; /* 142.857% */
+}
+.cate53 {
+  color: var(--text-color-light-primary-text, #262626);
+  text-align: right;
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: Lato;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 20px; /* 125% */
+}
+.cate5 {
+  margin-top: 5px;
+  width: 237px;
+  height: var(--spacing-0, 1px);
+  background: var(--button-stroke-stroke, #d9d9d9);
+}
 .cate21 {
   cursor: pointer;
 }
 .cate42 {
   position: relative;
+  z-index: 1;
 }
 .cate42:hover .cate4 {
   display: inline-flex;
