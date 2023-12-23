@@ -14,23 +14,31 @@ const state =
       RESET_SEARCH_QUERY(state) {
         state.searchQuery = "";
       },
-        setProduct(state, { data }) {
-            state.products = data.products;
-            state.Images = {};
+      setProduct(state, { data }) {
+        state.products = data.products;
+        state.Images = {};
+        if (state.isFavorite.length === 0) {
             state.isFavorite = [];
             state.products.forEach((product) => {
-              state.Images[product.id] ="../../assets/favorite2.svg";
-              state.isFavorite[product.id] = false;
-            })
-          },
+                state.Images[product.id] = "../src/assets/favorite2.svg";
+                state.isFavorite[product.id] = false;
+            });
+        } else {
+            // If isFavorite is already populated, update Images with the default source
+            state.products.forEach((product) => {
+                if (!state.Images.hasOwnProperty(product.id)) {
+                    state.Images[product.id] = "../src/assets/favorite2.svg";
+                }
+            });
+        }
+    },    
           toggleFavorite(state, productId) {
             state.isFavorite[productId] = !state.isFavorite[productId];
             if (state.isFavorite[productId]) {
-              state.Images[productId] = "../../assets/favorite1.svg";
+              state.Images[productId] = "../src/assets/favorite1.svg";
             } else {
-              state.Images[productId] = "../../assets/favorite2.svg";
+              state.Images[productId] = "../src/assets/favorite2.svg";
             }
-            console.log('Updated isFavorite:', state.isFavorite);
           },
         }
       const actions= {
@@ -54,12 +62,18 @@ const state =
               }
           },
           toggleProductFavorite({ commit }, productId) {
-            console.log(`Dispatching toggleProductFavorite for product ${productId}`);
             commit('toggleFavorite', productId);
           },
       }
 
    const getters= {
+    favoriteProducts: (state) => {
+      return state.products.filter((product) => state.isFavorite[product.id]);
+    },
+  
+    favoriteProductsArray: (state) => {
+      return state.products.filter((product) => state.isFavorite[product.id]);
+    },
         search: (state) => state.searchQuery,
         products: state => state.products,
         isFavorite: state => state.isFavorite,

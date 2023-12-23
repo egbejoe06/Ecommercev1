@@ -7,7 +7,10 @@
           <div class="pd1">
             <div class="pd1-img">
               <div class="pd1-img1">
-                <span v-for="(image, index) in productDetails.images" :key="index">
+                <span
+                  v-for="(image, index) in productDetails.images.slice(0, 5)"
+                  :key="index"
+                >
                   <img @click="swap(index)" :src="image" alt="" />
                 </span>
               </div>

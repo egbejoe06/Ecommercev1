@@ -77,9 +77,26 @@
           <div class="cate22">Sign in</div>
         </div></Router-Link
       >
-      <div class="cate21">
-        <div><img src="../assets/Favorides.svg" alt="" /></div>
-        <div class="cate22">Favorities</div>
+      <div class="cate42">
+        <div class="cate21">
+          <div><img src="../assets/Favorides.svg" alt="" /></div>
+          <div class="cate22">Favorities</div>
+          <div class="cate4">
+            <div v-for="fav in favoriteProductsArray">
+              <router-link :to="{ name: 'Productdetails', params: { id: fav.id } }">
+                <div class="cate41">
+                  <div>
+                    <img class="cate43" :src="fav.thumbnail" alt="" />
+                  </div>
+                  <div class="cate44">
+                    <span class="cate45">{{ fav.title }}</span
+                    ><span class="cate46">${{ fav.price }}</span>
+                  </div>
+                </div></router-link
+              >
+            </div>
+          </div>
+        </div>
       </div>
       <div class="cate21">
         <div>
@@ -100,6 +117,10 @@
 import { mapGetters, mapActions } from "vuex";
 import Menu from "../components/Menu.vue";
 export default {
+  created() {
+    const favoriteProductsArray = this.$store.getters["product/favoriteProductsArray"];
+    console.log(favoriteProductsArray);
+  },
   components: { Menu },
   data() {
     return {
@@ -116,7 +137,7 @@ export default {
       "productDetails",
       "carts",
     ]),
-    ...mapGetters("product", ["products"]),
+    ...mapGetters("product", ["products", "favoriteProductsArray"]),
   },
   beforeDestroy() {
     this.setSearchQuery("");
@@ -147,6 +168,62 @@ export default {
 };
 </script>
 <style>
+.cate21 {
+  cursor: pointer;
+}
+.cate42 {
+  position: relative;
+}
+.cate42:hover .cate4 {
+  display: inline-flex;
+}
+.cate4 {
+  top: 30px;
+  left: -65px;
+  position: absolute;
+  display: none;
+  padding: var(--spacing-6, 24px) var(--spacing-5, 20px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-8, 32px);
+  border-radius: var(--spacing-2, 8px);
+  background: #fff;
+  box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+}
+.cate41 {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-6, 24px);
+}
+.cate43 {
+  width: 38px;
+  height: 54px;
+}
+.cate44 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-2, 8px);
+}
+.cate45 {
+  width: 175px;
+  color: var(--text-color-light-primary-text, #262626);
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px; /* 142.857% */
+}
+.cate46 {
+  color: var(--text-color-light-secondary-text, #555);
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+}
 .header3 {
   position: relative;
   z-index: 1;

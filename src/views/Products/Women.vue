@@ -311,7 +311,7 @@ export default {
 
         const isWomenDress = category.includes("women-dress");
         const isWomenShoes = category.includes("women-shoes");
-        const isWomensWatches = category.includes("womens-watches"); // Corrected category name
+        const isWomensWatches = category.includes("womens-watches");
         const isWomensBags = category.includes("womens-bags");
         const isWomensJewellery = category.includes("womens-jewellery");
         const isMatchingCategory =

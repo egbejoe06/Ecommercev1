@@ -39,11 +39,14 @@
               <div class="timer">{{ formatCountdown(fsale.countdown) }}</div>
               <div class="fs11">{{ fsale.hour }}:{{ fsale.min }}:{{ fsale.sec }}</div>
             </div>
-            <div class="fs41">
-              <img class="fs4" :src="fsale.thumbnail" alt="" />
-            </div>
+            <router-link :to="{ name: 'Productdetails', params: { id: fsale.id } }">
+              <div class="fs41">
+                <img class="fs4" :src="fsale.thumbnail" alt="" /></div
+            ></router-link>
             <div class="fs2">
-              <div class="fs21">{{ fsale.title }}</div>
+              <router-link :to="{ name: 'Productdetails', params: { id: fsale.id } }">
+                <div class="fs21">{{ fsale.title }}</div></router-link
+              >
               <div class="fs22">{{ fsale.description }}</div>
               <div>
                 <div>
@@ -143,11 +146,15 @@
           >
         </div>
         <div class="fsales">
-          <div v-for="top in tops" class="fsales1" :key="index">
-            <div><img class="mn41" :src="top.img" alt="" /></div>
+          <div v-for="top in products.slice(33, 37)" class="fsales1">
+            <router-link :to="{ name: 'Productdetails', params: { id: top.id } }"
+              ><div><img class="mn41" :src="top.thumbnail" alt="" /></div
+            ></router-link>
             <div class="fs2">
-              <div class="fs21">{{ top.text1 }}</div>
-              <div class="fs22">{{ top.text2 }}</div>
+              <router-link :to="{ name: 'Productdetails', params: { id: top.id } }">
+                <div class="fs21">{{ top.title }}</div></router-link
+              >
+              <div class="fs22">{{ top.description }}</div>
               <div>
                 <div>
                   <img src="../assets/star.svg" alt="" /><img
@@ -157,13 +164,15 @@
                     src="../assets/star.svg"
                     alt=""
                   />
-                  (54)
+                  ({{ top.stock }})
                 </div>
               </div>
               <div class="fs3">
-                <div class="fs31">{{ top.price }}</div>
-                <div class="fs32">{{ top.price1 }}</div>
-                <div class="fs33">{{ top.discount }}</div>
+                <div class="fs31">
+                  ${{ calculateNormalPrice(top.discountPercentage, top.price) }}
+                </div>
+                <div class="fs32">${{ top.price }}</div>
+                <div class="fs33">-{{ top.discountPercentage }}%</div>
               </div>
             </div>
           </div>
@@ -323,6 +332,14 @@ export default {
     this.$store.dispatch("product/fetchProduct");
   },
   computed: {
+    Dresses() {
+      return this.products.filter((product) => {
+        const category = product.category.toLowerCase();
+        const isWomenDress = category.includes("women-dress");
+
+        return isWomenDress;
+      });
+    },
     flashsales() {
       const minLength = Math.min(this.shuffledProducts.length, this.fsales.length);
 
@@ -335,7 +352,6 @@ export default {
       "products",
       "isFavorite",
       "Images",
-      "filteredProducts",
       "favoriteProducts",
       "search",
     ]),
@@ -381,13 +397,11 @@ export default {
     },
   },
   mounted() {
-    // Start countdown timer for each product
     this.fsales.forEach((fsale) => {
       setInterval(() => {
         if (fsale.countdown > 0) {
           fsale.countdown -= 1;
         } else {
-          // Reset the countdown to the initial value when it reaches 0
           fsale.countdown = fsale.initialCountdown;
         }
       }, 1000);
