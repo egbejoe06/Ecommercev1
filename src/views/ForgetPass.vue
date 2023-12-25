@@ -91,8 +91,8 @@
   </div>
 </template>
 <script>
-import Footer from "../components/Header.vue";
-import Header from "../components/Footer.vue";
+import Header from "../components/Header.vue";
+import Footer from "../components/Footer.vue";
 export default {
   components: { Header, Footer },
   data() {

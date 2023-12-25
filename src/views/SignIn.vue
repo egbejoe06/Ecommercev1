@@ -70,7 +70,7 @@
         <div>
           <button @click.prevent="validate1()" class="sg5">
             <div><img src="../assets/Google__G__Logo.png" alt="" /></div>
-            <div>Sign in by google</div>
+            <div>Sign in by Google</div>
           </button>
         </div>
       </div>
@@ -85,6 +85,7 @@
   </div>
 </template>
 <script>
+import { supabase } from "../clients/supabase";
 export default {
   data() {
     return {
@@ -103,7 +104,7 @@ export default {
     showpassword() {
       this.IsPassword = !this.IsPassword;
     },
-    validate() {
+    async validate() {
       this.err2 = "";
       this.err3 = "";
       if (this.Email.length < 2) {
@@ -113,9 +114,30 @@ export default {
       if (this.Password.length < 1) {
         this.err3 = "Password cannot be empty";
       } else {
-        setTimeout(() => {
-          this.$router.push("/");
-        }, 500);
+        try {
+          const { user, error } = await supabase.auth.signInWithPassword({
+            email: this.Email,
+            password: this.Password,
+          });
+          if (error) {
+            console.log(error);
+          } else {
+            console.log(user);
+            setTimeout(() => {
+              this.$router.push("/");
+            }, 500);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    },
+    async logout() {
+      const { data, error } = await supabase.auth.signOut();
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(data);
       }
     },
     validate1() {

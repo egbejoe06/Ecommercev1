@@ -94,6 +94,7 @@
 </template>
 
 <script>
+import { supabase } from "../clients/supabase";
 export default {
   data() {
     return {
@@ -111,7 +112,7 @@ export default {
     showpass() {
       this.IsPassword = !this.IsPassword;
     },
-    validate2() {
+    async validate2() {
       this.err4 = "";
       this.err5 = "";
       this.err6 = "";
@@ -129,11 +130,24 @@ export default {
         valid = false;
       }
       if (valid) {
-        this.$emit("show-popup"),
-          {
-            SignupEmail: this.SignupEmail,
-            Name: this.Name,
-          };
+        try {
+          const { user, error } = await supabase.auth.signUp({
+            email: this.SignupEmail,
+            password: this.SignupEmail,
+          });
+          if (error) {
+            console.error(error);
+            return;
+          }
+          this.$emit("show-popup"),
+            {
+              SignupEmail: this.SignupEmail,
+              Name: this.Name,
+            };
+          console.log("User registered:", user);
+        } catch (error) {
+          console.error(error);
+        }
       }
     },
     validate3() {
