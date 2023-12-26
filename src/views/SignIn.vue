@@ -121,6 +121,8 @@ export default {
           });
           if (error) {
             console.log(error);
+            this.err3 = "Wrong Password";
+            this.err2 = "Wrong email address";
           } else {
             console.log(user);
             setTimeout(() => {
@@ -133,12 +135,8 @@ export default {
       }
     },
     async logout() {
-      const { data, error } = await supabase.auth.signOut();
-      if (error) {
-        console.log(error);
-      } else {
-        console.log(data);
-      }
+      const user = await supabase.auth.getSession();
+      console.log(user);
     },
     validate1() {
       setTimeout(() => {

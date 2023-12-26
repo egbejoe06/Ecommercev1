@@ -133,7 +133,7 @@ export default {
         try {
           const { user, error } = await supabase.auth.signUp({
             email: this.SignupEmail,
-            password: this.SignupEmail,
+            password: this.SignupPassword,
           });
           if (error) {
             console.error(error);
