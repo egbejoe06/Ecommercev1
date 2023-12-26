@@ -135,7 +135,7 @@ export default {
       }
     },
     async logout() {
-      const user = await supabase.auth.getSession();
+      const user = await supabase.auth.signOut();
       console.log(user);
     },
     validate1() {

@@ -16,6 +16,7 @@ import Best from '../views/Products/Best.vue'
 import NotFound from '../views/Products/NotFound.vue'
 import Productdetails from '../views/Products/Productdetails.vue'
 import Cart from '../views/Cart.vue'
+import { supabase } from '../clients/supabase'
 
 const routes = [
   {
@@ -106,7 +107,8 @@ const routes = [
   {
     path: '/Cart',
     name: 'Cart',
-    component: Cart
+    component: Cart,
+    meta: { requiresAuth: true }
   },
 ]
 
@@ -114,7 +116,23 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes
 });
+async function getUser(next) {
+	const localUser = await supabase.auth.getSession();
+	if (localUser.data.session == null) {
+		next('/sign-in')
+	}
+	else {
+		next();
+	}
+}
 
-
+router.beforeEach((to, from, next) => {
+	if (to.meta.requiresAuth) {
+		getUser(next);
+	}
+	else {
+		next();
+	}
+})
 
 export default router
