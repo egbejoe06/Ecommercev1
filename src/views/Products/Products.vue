@@ -124,6 +124,7 @@ export default {
   components: { Header, Footer },
   data() {
     return {
+      sortOption: "default",
       searchQuery: "",
       min: 10,
       max: 2100,
@@ -142,12 +143,27 @@ export default {
   created() {
     this.$store.dispatch("product/fetchProduct");
   },
+  watch: {
+    sortOption() {
+      this.$forceUpdate();
+    },
+  },
   beforeRouteLeave(to, from, next) {
     this.$store.dispatch("product/resetSearchQuery");
     console.log(this.search);
     next();
   },
   computed: {
+    sortedProducts() {
+      switch (this.sortOption) {
+        case "price":
+          return this.filteredProducts.slice().sort((a, b) => a.price - b.price);
+        case "rating":
+          return this.filteredProducts.slice().sort((a, b) => b.rating - a.rating);
+        default:
+          return this.filteredProducts.slice();
+      }
+    },
     ...mapGetters("product", [
       "products",
       "isFavorite",

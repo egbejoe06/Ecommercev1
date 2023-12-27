@@ -12,8 +12,10 @@
       </div>
       <div class="sh2">
         <div class="sh21">
-          <select>
-            <option>Sort by order</option>
+          <select v-model="sortOption" @change="sortProducts">
+            <option value="default">Sort by order</option>
+            <option value="price">Sort by price</option>
+            <option value="rating">Sort by rating</option>
           </select>
         </div>
       </div>
@@ -80,11 +82,7 @@
         </div>
       </div>
       <div class="mainmenu">
-        <div
-          class="mm"
-          v-for="product in filteredProducts.slice(0, 12)"
-          :key="product.id"
-        >
+        <div class="mm" v-for="product in sortedProducts.slice(0, 12)" :key="product.id">
           <div class="mm-1">
             <router-link :to="{ name: 'Productdetails', params: { id: product.id } }">
               <div>
@@ -127,13 +125,14 @@
   </div>
 </template>
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
 export default {
   components: { Header, Footer },
   data() {
     return {
+      sortOption: "default",
       selectedCategory: null,
       searchQuery: "",
       min: 10,
@@ -153,7 +152,22 @@ export default {
   created() {
     this.$store.dispatch("product/fetchProduct");
   },
+  watch: {
+    sortOption() {
+      this.$forceUpdate();
+    },
+  },
   computed: {
+    sortedProducts() {
+      switch (this.sortOption) {
+        case "price":
+          return this.filteredProducts.slice().sort((a, b) => a.price - b.price);
+        case "rating":
+          return this.filteredProducts.slice().sort((a, b) => b.rating - a.rating);
+        default:
+          return this.filteredProducts.slice();
+      }
+    },
     ...mapGetters("product", [
       "products",
       "isFavorite",
@@ -198,14 +212,12 @@ export default {
     },
   },
   beforeRouteLeave(to, from, next) {
-    // Assuming you have access to the Vuex store via `this.$store`
     this.$store.dispatch("product/resetSearchQuery");
     console.log(this.search);
     next();
   },
 
   methods: {
-    ...mapActions("product", ["setSearchQuery"]),
     toggleFavorite(productId) {
       this.$store.dispatch("product/toggleProductFavorite", productId);
     },
