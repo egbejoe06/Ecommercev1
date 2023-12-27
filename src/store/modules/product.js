@@ -24,7 +24,6 @@ const state =
                 state.isFavorite[product.id] = false;
             });
         } else {
-            // If isFavorite is already populated, update Images with the default source
             state.products.forEach((product) => {
                 if (!state.Images.hasOwnProperty(product.id)) {
                     state.Images[product.id] = "../src/assets/favorite2.svg";

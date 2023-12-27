@@ -462,6 +462,15 @@
                 <span class="cm52">${{ Total1.toFixed(2) }}</span>
               </div>
             </div>
+            <stripe-checkout
+              ref="checkoutRef"
+              mode="payment"
+              :pk="publishableKey"
+              :line-items="lineItems"
+              :success="successURl"
+              :cancel="cancelURl"
+              @loading="(v) => (loading = v)"
+            />
             <div v-if="checkedout" @click="checkout()" class="cm6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -480,7 +489,7 @@
               </svg>
               <span>Checkout</span>
             </div>
-            <div v-else class="cm6">
+            <div @click="Buy()" v-else class="cm6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="25"
@@ -521,9 +530,8 @@
                   stroke="white"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                />
-              </svg>
-              <span>Shop now</span>
+                /></svg
+              ><span>Shop now</span>
             </div>
           </div>
         </div>
@@ -568,9 +576,21 @@
 import { mapGetters, mapActions } from "vuex";
 import Header from "../components/Header.vue";
 import Footer from "../components/Footer.vue";
+import { StripeCheckout } from "@vue-stripe/vue-stripe";
 export default {
   data() {
     return {
+      loading: false,
+      lineItems: [
+        {
+          price: "price_1OS1y4Gl2kDj8xLv0o3aeDQ8",
+          quantity: 1,
+        },
+      ],
+      successURl: "http://localhost:5173/sign-in",
+      cancelURl: "http://localhost:5173/sign-up",
+      publishableKey:
+        "pk_test_51ORzhDGl2kDj8xLv18vpQ4sDVJprapVGzjlvyoccObPcMt7DMttV77S1VZQqR24n8Rwbv1Xb4HYAd4I2IHw1uONc00gczlLhXe",
       Email: "",
       Firstname: "",
       Lastname: "",
@@ -601,7 +621,7 @@ export default {
       procee: true,
     };
   },
-  components: { Header, Footer },
+  components: { Header, Footer, StripeCheckout },
   watch: {
     selectedCountry(newValue) {
       this.$store.dispatch("productdetails/fetchFlagImageUrl", newValue);
@@ -651,6 +671,13 @@ export default {
     ...mapGetters("product", ["products", "isFavorite", "Images", "favoriteProducts"]),
   },
   methods: {
+    async Buy() {
+      try {
+        await this.$refs.checkoutRef.redirectToCheckout();
+      } catch (error) {
+        console.error("Error during checkout:", error);
+      }
+    },
     validateForm() {
       this.isEmailValid = this.validateEmail(this.Email);
       this.isFirstnameValid = this.validateRequiredField(this.Firstname);
