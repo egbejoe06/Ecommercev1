@@ -127,9 +127,12 @@
             <div class="cate5"></div>
           </div>
           <div class="cate51">
-            <span class="cate52">Total</span><span class="cate53">${{ Total1 }}</span>
+            <span class="cate52">Total</span
+            ><span class="cate53">${{ Total1.toFixed(2) }}</span>
           </div>
-          <router-link to="/Cart"> <div class="cate54">View Bag</div></router-link>
+          <router-link to="/Cart" style="width: 100%">
+            <div class="cate54">View Bag</div></router-link
+          >
         </div>
       </div>
     </div>

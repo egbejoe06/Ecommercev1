@@ -71,15 +71,24 @@
               <div class="ci3">
                 <label class="ci4">E-mail</label>
                 <input v-model="Email" class="ci5 ci7" type="email" />
+                <span v-if="!isEmailValid" class="error-message"
+                  >Invalid email format.</span
+                >
               </div>
               <div class="ci6">
                 <div class="ci3">
                   <label class="ci4">First Name</label>
                   <input v-model="Firstname" class="ci5" type="text" />
+                  <span v-if="!isFirstnameValid" class="error-message"
+                    >Please enter a first name.</span
+                  >
                 </div>
                 <div class="ci3">
                   <label class="ci4">Last Name</label>
                   <input v-model="Lastname" class="ci5" type="text" />
+                  <span v-if="!isLastnameValid" class="error-message"
+                    >Please enter a last name.</span
+                  >
                 </div>
               </div>
             </div>
@@ -107,6 +116,9 @@
                   </option>
                 </select></span
               >
+              <span v-if="!isCountryValid" class="error-message"
+                >Please select a country.</span
+              >
             </div>
             <div class="ci3">
               <span class="ci4">State/Region</span>
@@ -118,14 +130,21 @@
                   </option>
                 </select>
               </span>
+              <span v-if="!isCityValid" class="error-message">Please select a city.</span>
             </div>
             <div class="ci3">
               <label class="ci4">Address</label>
-              <input v-model="address" class="ci5 ci7" type="email" />
+              <input v-model="address" class="ci5 ci7" type="text" />
+              <span v-if="!isAddressValid" class="error-message"
+                >Please enter an address.</span
+              >
             </div>
             <div class="ci3">
               <label class="ci4">Phone Number</label>
               <input v-model="Phonenumber" class="ci5 ci7 ci9" type="number" />
+              <span v-if="!isPhonenumberValid" class="error-message"
+                >Invalid phone number.</span
+              >
             </div>
           </div>
         </div>
@@ -134,6 +153,9 @@
             <div class="cpayment1">
               <span class="cpayment2">Payment </span>
               <span class="cpayment3">Please choose a payment method</span>
+              <div v-if="!isSelectionValid" class="validation-message">
+                Please select at least one payment method
+              </div>
             </div>
             <div class="cpayment4" :class="{ cpayment63: paypal }">
               <div class="cpayment5">
@@ -216,6 +238,9 @@
               <span class="cpayment3"
                 >Please choose a shipping company based on your region</span
               >
+              <div v-if="!isSelectionValid" class="validation-message">
+                Please select at least one shipping company.
+              </div>
             </div>
             <div class="cpayment4" :class="{ cpayment63: ausff }">
               <div class="cpayment5">
@@ -503,11 +528,14 @@
           </div>
         </div>
       </div>
-      <div class="coupon">
-        <div class="coupon1">
-          <input type="text" placeholder="Enter Coupon Code" />
+      <div class="coupon" :class="{ coupon5: !procee }">
+        <div v-show="procee" class="coupon4" @click="proceed()">Proceed</div>
+        <div class="coupon3">
+          <div class="coupon1">
+            <input type="text" placeholder="Enter Coupon Code" />
+          </div>
+          <div class="coupon2">Login and Apply code</div>
         </div>
-        <div class="coupon2">Login and Apply code</div>
       </div>
     </div>
     <div class="siproduct">
@@ -548,6 +576,13 @@ export default {
       Lastname: "",
       address: "",
       Phonenumber: "",
+      isPhonenumberValid: true,
+      isAddressValid: true,
+      isCityValid: true,
+      isCountryValid: true,
+      isLastnameValid: true,
+      isFirstnameValid: true,
+      isEmailValid: true,
       paypal: false,
       bitcoin: false,
       mastercard: false,
@@ -563,6 +598,7 @@ export default {
       cCustomer: false,
       cShipping: false,
       cProduct: false,
+      procee: true,
     };
   },
   components: { Header, Footer },
@@ -572,6 +608,12 @@ export default {
     },
   },
   computed: {
+    isSelectionValid() {
+      return (
+        (this.paypal || this.mastercard || this.bitcoin) &&
+        (this.ausff || this.racecouriers || this.transcargo)
+      );
+    },
     selectedCountryDialCode() {
       const dialCode = this.$store.state.productdetails.selectedCountryDialCode;
       return dialCode;
@@ -609,6 +651,58 @@ export default {
     ...mapGetters("product", ["products", "isFavorite", "Images", "favoriteProducts"]),
   },
   methods: {
+    validateForm() {
+      this.isEmailValid = this.validateEmail(this.Email);
+      this.isFirstnameValid = this.validateRequiredField(this.Firstname);
+      this.isLastnameValid = this.validateRequiredField(this.Lastname);
+      this.isCountryValid = this.validateRequiredField(this.selectedCountry);
+      this.isCityValid = this.validateRequiredField(this.selectedCity);
+      this.isAddressValid = this.validateRequiredField(this.address);
+      this.isPhonenumberValid = this.validatePhoneNumber(this.Phonenumber);
+      return (
+        this.isEmailValid &&
+        this.isFirstnameValid &&
+        this.isLastnameValid &&
+        this.isCountryValid &&
+        this.isCityValid &&
+        this.isAddressValid &&
+        this.isPhonenumberValid
+      );
+    },
+    proceed() {
+      if (this.cCard) {
+        this.cCard = false;
+        this.cCustomer = true;
+        this.procee = true;
+      }
+      if (this.cCustomer) {
+        if (this.validateForm()) {
+          this.cShipping = true;
+          this.cCustomer = false;
+          this.procee = true;
+        } else {
+          console.log("Form validation failed. Please check your inputs.");
+        }
+      }
+      if (this.cShipping) {
+        if (this.isSelectionValid) {
+          this.cProduct = true;
+          this.cShipping = false;
+          this.procee = false;
+        }
+      }
+    },
+    validateEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    },
+    validateRequiredField(value) {
+      return value.trim() !== "";
+    },
+    validatePhoneNumber(phoneNumber) {
+      const phoneRegex = /^\d{10}$/;
+      return phoneRegex.test(phoneNumber);
+    },
     Paypal1() {
       this.paypal = !this.paypal;
       if (this.paypal) {
@@ -1118,8 +1212,53 @@ export default {
 .coupon {
   display: flex;
   padding: var(--spacing-0, 0px) 90px;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
+}
+.error-message {
+  display: block;
+  width: 145px;
+  color: var(--text-color-light-text-off-proces, #ff2e00);
+  font-family: Lato;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 10px;
+  padding-bottom: 10px;
+}
+.validation-message {
+  display: block;
+  color: var(--text-color-light-text-off-proces, #ff2e00);
+  font-family: Lato;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 10px;
+  padding-bottom: 10px;
+}
+.coupon3 {
+  display: flex;
+}
+.coupon5 {
+  display: flex;
+  padding: var(--spacing-0, 0px) 90px;
+  justify-content: flex-end !important;
+  align-items: center;
+}
+.coupon4 {
+  border-radius: 5px;
+  padding: 10px;
+  background: #7b7b7b;
+  color: #fff;
+  text-align: right;
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: Lato;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px; /* 166.667% */
+  text-transform: capitalize;
+  cursor: pointer;
 }
 .coupon1 {
   display: flex;
