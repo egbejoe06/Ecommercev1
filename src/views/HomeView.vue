@@ -1,7 +1,9 @@
 <template>
   <div class="home">
-    <Header v-if="windowWidth >= 767" />
-    <MobileHeader v-else />
+    <div>
+      <Header v-if="windowWidth >= 767" />
+      <MobileHeader v-else />
+    </div>
     <div class="b2w">
       <router-link to="/">
         <div class="b2w1">
@@ -11,7 +13,7 @@
       </router-link>
     </div>
     <div class="sign" :style="{ opacity: isPopupVisible ? '50%' : '100%' }">
-      <div><SignIn /></div>
+      <div class="sign_1"><SignIn /></div>
       <div class="sign1"></div>
       <div><Signup @show-popup="togglePopup" /></div>
     </div>
@@ -21,7 +23,9 @@
       :SignupEmail="SignupEmail"
       :Name="Name"
     />
-    <Footer />
+    <div>
+      <Footer />
+    </div>
   </div>
 </template>
 
@@ -70,6 +74,9 @@ export default {
 </script>
 <style>
 @media only screen and (max-width: 600px) {
+  .sign_1 {
+    width: 100%;
+  }
   .b2w {
     display: none !important;
   }
