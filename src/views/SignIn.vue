@@ -44,11 +44,11 @@
             <input v-model="remember" type="checkbox" />
             <label class="sg311">Remember me</label>
           </div>
-          <router-link to="/forgetpassword"
-            ><div class="sg32">forget Password</div></router-link
-          >
+          <div class="sg32">
+            <router-link to="/forgetpassword">forget Password</router-link>
+          </div>
         </div>
-        <div>
+        <div class="sg8">
           <button
             :style="{
               backgroundColor:
@@ -67,7 +67,7 @@
           <div class="sg62">or</div>
           <div class="sg63"></div>
         </div>
-        <div>
+        <div class="sg8">
           <button @click.prevent="validate1()" class="sg5">
             <div><img src="../assets/Google__G__Logo.png" alt="" /></div>
             <div>Sign in by Google</div>
@@ -147,6 +147,36 @@ export default {
 };
 </script>
 <style>
+@media only screen and (max-width: 600px) {
+  form {
+    width: 100%;
+  }
+  .sg8 {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+  }
+  .sg4,
+  .sg5 {
+    width: 300px !important;
+  }
+  .sg22 {
+    width: 100% !important;
+  }
+  .sg211 div input {
+    width: 270px !important;
+  }
+  .sg31 {
+    flex: unset !important;
+  }
+  .sg3 {
+    justify-content: space-between;
+  }
+  .sg211 {
+    gap: unset;
+    justify-content: space-between;
+  }
+}
 .error {
   outline: 1px solid red;
 }
@@ -271,8 +301,11 @@ export default {
   font-weight: 400;
   line-height: 20px; /* 166.667% */
 }
+.sg32 a {
+  color: var(--button-default, #4172dc) !important;
+}
 .sg32 {
-  color: var(--button-default, #4172dc);
+  color: var(--button-default, #4172dc) !important;
   font-feature-settings: "clig" off, "liga" off;
   font-family: Lato;
   font-size: 12px;

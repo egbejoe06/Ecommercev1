@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div>
+    <div class="home1">
       <Header v-if="windowWidth >= 767" />
       <MobileHeader v-else />
     </div>
@@ -92,11 +92,10 @@ export default {
   .sg1 {
     display: flex;
     align-items: flex-start;
-    padding-left: 27px;
     width: 100%;
   }
   .sign {
-    padding: 20px 0px 0px 0px !important;
+    padding: 20px 20px 0px 10px !important;
   }
   .sg7 {
     padding-left: 20px;

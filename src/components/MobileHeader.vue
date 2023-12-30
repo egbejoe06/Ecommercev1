@@ -42,20 +42,24 @@
     </div>
   </div>
   <div class="search">
-    <input v-model="searched" type="text" placeholder="search products" />
-    <div class="options">
-      <select v-model="searchCategories">
-        <option value="All categories">All categories</option>
-        <option value="Women">Women</option>
-        <option value="Men">Men</option>
-        <option value="Home & Furniture">Home & Furniture</option>
-        <option value="Supermarket">Supermarkets</option>
-        <option value="Cosmetics">Cosmetics</option>
-        <option value="Shoe & Bag">Shoe & Bag</option>
-        <option value="Electronics">Electronics</option>
-        <option value="Sports and Outdoors">Sports and Outdoors</option>
-        <option value="Best sellers">Best Sellers</option>
-      </select>
+    <div class="search1">
+      <div>
+        <input v-model="searched" type="text" placeholder="search products" />
+      </div>
+      <div class="options">
+        <select v-model="searchCategories">
+          <option value="All categories">All categories</option>
+          <option value="Women">Women</option>
+          <option value="Men">Men</option>
+          <option value="Home & Furniture">Home & Furniture</option>
+          <option value="Supermarket">Supermarkets</option>
+          <option value="Cosmetics">Cosmetics</option>
+          <option value="Shoe & Bag">Shoe & Bag</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Sports and Outdoors">Sports and Outdoors</option>
+          <option value="Best sellers">Best Sellers</option>
+        </select>
+      </div>
     </div>
     <div style="cursor: pointer" @click="searchCategory()">
       <img src="../assets/Search.svg" alt="" />
@@ -124,6 +128,13 @@ export default {
 </script>
 <style scoped>
 @media only screen and (max-width: 600px) {
+  .search1 {
+    display: flex;
+    align-items: center;
+    gap: var(--Spacing-4, 16px);
+    flex: 1 0 0;
+    align-self: stretch;
+  }
   .search {
     display: flex;
     height: 54px;
@@ -134,6 +145,7 @@ export default {
     align-self: stretch;
   }
   .search input {
+    width: 150px;
     color: var(--text-color-Light-tritary-text, #9d9d9d);
     font-feature-settings: "clig" off, "liga" off;
     font-family: Lato;
