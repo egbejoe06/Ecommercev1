@@ -74,6 +74,9 @@ export default {
 </script>
 <style>
 @media only screen and (max-width: 600px) {
+  .home1 {
+    padding: 0px 10px;
+  }
   .sign_1 {
     width: 100%;
   }

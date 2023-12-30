@@ -158,7 +158,7 @@ export default {
   }
   .sg4,
   .sg5 {
-    width: 300px !important;
+    width: 100% !important;
   }
   .sg22 {
     width: 100% !important;
