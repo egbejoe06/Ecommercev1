@@ -453,6 +453,85 @@
           </div>
         </div>
       </div>
+      <div class="dp10">
+        <Router-Link :to="{ name: 'Signin' }">
+          <div class="dp11">
+            <span class="dp12">Login/Register</span
+            ><span
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="25"
+                viewBox="0 0 24 25"
+                fill="none"
+              >
+                <path
+                  d="M10 7.5L14 12.5L10 17.5"
+                  stroke="#434343"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                /></svg
+            ></span></div
+        ></Router-Link>
+        <div class="dp11">
+          <span class="dp12">Help & Support</span
+          ><span
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="25"
+              viewBox="0 0 24 25"
+              fill="none"
+            >
+              <path
+                d="M10 7.5L14 12.5L10 17.5"
+                stroke="#434343"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              /></svg
+          ></span>
+        </div>
+        <div class="dp11">
+          <span class="dp12">About us</span
+          ><span
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="25"
+              viewBox="0 0 24 25"
+              fill="none"
+            >
+              <path
+                d="M10 7.5L14 12.5L10 17.5"
+                stroke="#434343"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              /></svg
+          ></span>
+        </div>
+        <div class="dp11">
+          <span class="dp12">Blog</span
+          ><span
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="25"
+              viewBox="0 0 24 25"
+              fill="none"
+            >
+              <path
+                d="M10 7.5L14 12.5L10 17.5"
+                stroke="#434343"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              /></svg
+          ></span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -460,6 +539,91 @@
 export default {};
 </script>
 <style>
+@media only screen and (max-width: 767px) {
+  .dp1,
+  .dp2,
+  .dp3,
+  .dp4,
+  .dp5,
+  .dp6,
+  .dp7,
+  .dp8,
+  .dp9 {
+    position: relative;
+    width: 100%;
+  }
+  .menu {
+    width: 100% !important;
+    padding: 16px !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  .dp12 {
+    color: var(--text-color-Light-Primary-text, #262626);
+    font-feature-settings: "clig" off, "liga" off;
+    font-family: Lato;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 25px; /* 156.25% */
+  }
+  .dp10 {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: var(--Spacing-5, 10px);
+    align-self: stretch;
+  }
+  .dp11 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+  }
+  .dp1:hover .dropdown,
+  .dp2:hover .dropdown,
+  .dp3:hover .dropdown,
+  .dp4:hover .dropdown,
+  .dp5:hover .dropdown,
+  .dp6:hover .dropdown,
+  .dp7:hover .dropdown,
+  .dp8:hover .dropdown,
+  .dp9:hover .dropdown {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  .dropdown3 {
+    flex-direction: row !important;
+    width: unset !important;
+    gap: unset !important;
+    justify-content: space-between !important;
+    align-self: stretch;
+  }
+  .dropdown {
+    width: 100% !important;
+    left: 0 !important;
+    flex-wrap: unset !important;
+    top: unset;
+    display: flex;
+    padding: var(--Spacing-6, 24px);
+    align-items: center;
+    align-content: center;
+    gap: 70px;
+    align-self: stretch;
+    flex-wrap: wrap;
+  }
+  .dropdown3 img {
+    display: none !important;
+  }
+  .menu1 {
+    text-align: left !important; /* Adjust text alignment for mobile */
+  }
+}
+.dp10 {
+  display: none;
+}
 .cate211 {
   display: flex;
   gap: 5px;

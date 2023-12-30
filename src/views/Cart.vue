@@ -7,10 +7,18 @@
           <div :class="{ cartc4: cCard }" class="cartc3" @click="change1()">
             CARD({{ carts.length }})
           </div>
-          <div :class="{ cartc4: cCustomer }" class="cartc3" @click="change2()">
+          <div
+            :class="{ cartc4: cCustomer, cartc5: cartc5 }"
+            class="cartc3"
+            @click="change2()"
+          >
             Customer info
           </div>
-          <div :class="{ cartc4: cShipping }" class="cartc3" @click="change3()">
+          <div
+            :class="{ cartc4: cShipping, cartc5: cartc5 }"
+            class="cartc3"
+            @click="change3()"
+          >
             Shipping & Payment
           </div>
           <div :class="{ cartc4: cProduct }" class="cartc3" @click="change4()">
@@ -467,8 +475,7 @@
               mode="payment"
               :pk="publishableKey"
               :line-items="lineItems"
-              :success="successURl"
-              :cancel="cancelURl"
+              :success-url="successURl"
               @loading="(v) => (loading = v)"
             />
             <div v-if="checkedout" @click="checkout()" class="cm6">
@@ -569,10 +576,12 @@
         </div>
       </div>
     </div>
+    <div v-show="Paymentsuccess"><Payment /></div>
     <div style="width: 100%"><Footer /></div>
   </div>
 </template>
 <script>
+import Payment from "../components/Payment.vue";
 import { mapGetters, mapActions } from "vuex";
 import Header from "../components/Header.vue";
 import Footer from "../components/Footer.vue";
@@ -580,6 +589,8 @@ import { StripeCheckout } from "@vue-stripe/vue-stripe";
 export default {
   data() {
     return {
+      Paymentsuccess: false,
+      cartc5: false,
       loading: false,
       lineItems: [
         {
@@ -587,8 +598,8 @@ export default {
           quantity: 1,
         },
       ],
-      successURl: "http://localhost:5173/sign-in",
       cancelURl: "http://localhost:5173/sign-up",
+      successURl: "http://localhost:5173/cart",
       publishableKey:
         "pk_test_51ORzhDGl2kDj8xLv18vpQ4sDVJprapVGzjlvyoccObPcMt7DMttV77S1VZQqR24n8Rwbv1Xb4HYAd4I2IHw1uONc00gczlLhXe",
       Email: "",
@@ -621,7 +632,7 @@ export default {
       procee: true,
     };
   },
-  components: { Header, Footer, StripeCheckout },
+  components: { Header, Footer, StripeCheckout, Payment },
   watch: {
     selectedCountry(newValue) {
       this.$store.dispatch("productdetails/fetchFlagImageUrl", newValue);
@@ -671,12 +682,25 @@ export default {
     ...mapGetters("product", ["products", "isFavorite", "Images", "favoriteProducts"]),
   },
   methods: {
+    async handleSuccess() {
+      this.Paymentsuccess = true;
+      console.log("Payment successful!");
+    },
     async Buy() {
       try {
         await this.$refs.checkoutRef.redirectToCheckout();
       } catch (error) {
         console.error("Error during checkout:", error);
       }
+      /*      if (this.validateForm && this.isSelectionValid) {
+        try {
+          await this.$refs.checkoutRef.redirectToCheckout();
+        } catch (error) {
+          console.error("Error during checkout:", error);
+        }
+      } else {
+        this.cartc5 = true;
+      } */
     },
     validateForm() {
       this.isEmailValid = this.validateEmail(this.Email);
@@ -868,6 +892,9 @@ export default {
 };
 </script>
 <style>
+.cartc5 {
+  color: #ff2e00 !important;
+}
 .cpayment63 {
   background: #e9e9e9 !important;
 }

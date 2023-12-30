@@ -94,8 +94,10 @@
 </template>
 
 <script>
+import MobileHeader from "../components/MobileHeader.vue";
 import { supabase } from "../clients/supabase";
 export default {
+  components: { MobileHeader },
   data() {
     return {
       IsPassword: true,

@@ -1,6 +1,7 @@
 <template>
   <div class="home">
-    <Header />
+    <Header v-if="windowWidth >= 767" />
+    <MobileHeader v-else />
     <div class="b2w">
       <router-link to="/">
         <div class="b2w1">
@@ -30,6 +31,7 @@ import Signup from "../views/Signup.vue";
 import Header from "../components/Header.vue";
 import Footer from "../components/Footer.vue";
 import Popup from "../components/Popup.vue";
+import MobileHeader from "../components/MobileHeader.vue";
 export default {
   name: "HomeView",
   data() {
@@ -37,10 +39,20 @@ export default {
       isPopupVisible: false,
       Name: "",
       SignupEmail: "",
+      windowWidth: window.innerWidth,
     };
   },
-  components: { SignIn, Signup, Header, Footer, Popup },
+  mounted() {
+    window.addEventListener("resize", this.handleResize);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.handleResize);
+  },
+  components: { SignIn, Signup, Header, Footer, Popup, MobileHeader },
   methods: {
+    handleResize() {
+      this.windowWidth = window.innerWidth;
+    },
     togglePopup(data) {
       this.isPopupVisible = true;
       this.Name = data?.Name;
@@ -57,6 +69,32 @@ export default {
 };
 </script>
 <style>
+@media only screen and (max-width: 767px) {
+  .b2w {
+    display: none !important;
+  }
+  .sign1 {
+    display: none;
+  }
+  .sign-up {
+    display: none;
+  }
+  .sign-in {
+    align-items: center;
+  }
+  .sg1 {
+    display: flex;
+    align-items: flex-start;
+    padding-left: 27px;
+    width: 100%;
+  }
+  .sign {
+    padding: 20px 0px 0px 0px !important;
+  }
+  .sg7 {
+    padding-left: 20px;
+  }
+}
 .b2w3 {
   display: flex;
   width: 19px;
