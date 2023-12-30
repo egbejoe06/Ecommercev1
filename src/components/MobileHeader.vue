@@ -123,7 +123,7 @@ export default {
 };
 </script>
 <style scoped>
-@media (max-width: 375px) {
+@media only screen and (max-width: 600px) {
   .search {
     display: flex;
     height: 54px;

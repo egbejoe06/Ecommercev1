@@ -539,7 +539,7 @@
 export default {};
 </script>
 <style>
-@media (max-width: 375px) {
+@media only screen and (max-width: 600px) {
   .dp1,
   .dp2,
   .dp3,

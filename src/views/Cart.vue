@@ -1435,9 +1435,6 @@ export default {
 .ci9::-webkit-outer-spin-button {
   -webkit-appearance: none;
 }
-.ci9 {
-  -moz-appearance: textfield;
-}
 .ship35 {
   display: flex;
   width: 200px;

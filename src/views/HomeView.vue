@@ -69,7 +69,7 @@ export default {
 };
 </script>
 <style>
-@media (max-width: 375px) {
+@media only screen and (max-width: 600px) {
   .b2w {
     display: none !important;
   }
