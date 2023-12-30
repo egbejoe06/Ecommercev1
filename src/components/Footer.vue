@@ -57,6 +57,9 @@ export default {};
 </script>
 <style>
 @media only screen and (max-width: 600px) {
+  .footer21 div select {
+    display: none;
+  }
   .footer1 {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr);
