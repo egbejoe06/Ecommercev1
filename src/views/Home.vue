@@ -33,7 +33,9 @@
           <div class="mn52 mn59">
             <div class="mn53">The most famous sport brands</div>
             <div class="mn54">Get in gym essentials</div>
-            <div class="mn55">Exlopre all category</div>
+            <router-link to="/Products">
+              <div class="mn55">Exlopre all category</div></router-link
+            >
           </div>
           <div><img class="mn56" src="../assets/Rectangle1078.png" alt="" /></div>
         </div>
@@ -41,7 +43,9 @@
           <div class="mn52 mn58">
             <div class="mn53">Never-Ending Summer</div>
             <div class="mn54">Throwback Shirts & all-day dressed</div>
-            <div class="mn55">Exlopre all category</div>
+            <router-link to="/Products">
+              <div class="mn55">Exlopre all category</div></router-link
+            >
           </div>
           <div><img class="mn56 mn57" src="../assets/Rectangle1079.png" alt="" /></div>
         </div>
@@ -295,7 +299,9 @@
           <div class="mn52">
             <div class="mn53">The most famous sport brands</div>
             <div class="mn54">Get in gym essentials</div>
-            <div class="mn55">Exlopre all category</div>
+            <router-link to="/Products">
+              <div class="mn55">Exlopre all category</div></router-link
+            >
           </div>
           <div><img class="mn56" src="../assets/Rectangle1078.png" alt="" /></div>
         </div>
@@ -303,7 +309,9 @@
           <div class="mn52 mn58">
             <div class="mn53">Never-Ending Summer</div>
             <div class="mn54">Throwback Shirts & all-day dressed</div>
-            <div class="mn55">Exlopre all category</div>
+            <router-link to="/Products">
+              <div class="mn55">Exlopre all category</div></router-link
+            >
           </div>
           <div><img class="mn56 mn57" src="../assets/Rectangle1079.png" alt="" /></div>
         </div>
@@ -325,7 +333,9 @@
           <div class="mn52 mn71">
             <div class="mn53">The Pinky Barbie Edition</div>
             <div class="mn54">Lets play dress up</div>
-            <div class="mn55">Exlopre all category</div>
+            <router-link to="/Products">
+              <div class="mn55">Exlopre all category</div></router-link
+            >
           </div>
           <div><img class="mn56 mn72" src="../assets/Rectangle1080.png" alt="" /></div>
         </div>
@@ -333,7 +343,9 @@
           <div class="mn52 mn73">
             <div class="mn53">Best Sellers Everyone Love</div>
             <div class="mn54">poolside glam include</div>
-            <div class="mn55">Exlopre all category</div>
+            <router-link to="/Products">
+              <div class="mn55">Exlopre all category</div></router-link
+            >
           </div>
           <div>
             <img class="mn74" src="../assets/Rectangle1081.png" alt="" />
@@ -540,6 +552,12 @@ export default {
 </script>
 <style>
 @media only screen and (max-width: 600px) {
+  .mn52 {
+    padding: 14px 10px !important;
+  }
+  .mn53 {
+    font-size: 24px !important;
+  }
   .mEnu {
     display: none;
   }

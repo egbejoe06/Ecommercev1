@@ -72,4 +72,7 @@ export default {};
     display: none !important;
   }
 }
+.footer22 {
+  justify-content: space-between;
+}
 </style>

@@ -154,6 +154,12 @@ export default {
 </script>
 <style scoped>
 @media only screen and (max-width: 600px) {
+  .header3 {
+    left: unset !important;
+  }
+  .header3 .menu {
+    left: unset !important;
+  }
   .search1 {
     display: flex;
     align-items: center;
