@@ -58,7 +58,7 @@
             >
           </div>
         </div>
-        <div>
+        <div class="sg8">
           <button
             :style="{
               backgroundColor:
@@ -82,7 +82,7 @@
           <div class="sg62">or</div>
           <div class="sg63"></div>
         </div>
-        <div>
+        <div class="sg8">
           <button @click.prevent="validate3()" :disabled="!terms" class="sg5">
             <div><img src="../assets/Google__G__Logo.png" alt="" /></div>
             <div>Sign up by Google</div>

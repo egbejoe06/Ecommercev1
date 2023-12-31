@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div><Header /></div>
+    <div class="home1">
+      <Header v-if="windowWidth >= 767" />
+      <MobileHeader v-else />
+    </div>
     <div><Menu /></div>
     <div class="main">
       <div class="main1">
@@ -249,10 +252,12 @@ import { mapGetters } from "vuex";
 import Menu from "../components/Menu.vue";
 import Header from "../components/Header.vue";
 import Footer from "../components/Footer.vue";
+import MobileHeader from "../components/MobileHeader.vue";
 export default {
-  components: { Header, Footer, Menu },
+  components: { Header, Footer, Menu, MobileHeader },
   data() {
     return {
+      windowWidth: window.innerWidth,
       tops: [
         {
           img: "../src/assets/photo1.png",
@@ -362,6 +367,9 @@ export default {
     },
   },
   methods: {
+    handleResize() {
+      this.windowWidth = window.innerWidth;
+    },
     calculateNormalPrice(discountPercentage, discountPrice) {
       if (typeof discountPercentage === "number" && discountPercentage !== 0) {
         const normalPrice = discountPrice - (discountPercentage / 100) * discountPrice;
@@ -397,6 +405,7 @@ export default {
     },
   },
   mounted() {
+    window.addEventListener("resize", this.handleResize);
     this.fsales.forEach((fsale) => {
       setInterval(() => {
         if (fsale.countdown > 0) {
@@ -406,6 +415,9 @@ export default {
         }
       }, 1000);
     });
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.handleResize);
   },
 };
 </script>

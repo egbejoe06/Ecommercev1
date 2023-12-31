@@ -82,6 +82,10 @@
         territory
       </div>
     </div>
+    <div class="sg72">
+      <span class="sg73">Don’t have an account?</span>
+      <router-link to="/sign-up"> <span class="sg74"> Sign Up</span></router-link>
+    </div>
   </div>
 </template>
 <script>
@@ -176,6 +180,32 @@ export default {
     gap: unset;
     justify-content: space-between;
   }
+  .sg72 {
+    display: block !important;
+  }
+}
+.sg72 {
+  display: none;
+}
+.sg73 {
+  color: var(--text-color-Light-Primary-text, #262626);
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}
+.sg74 {
+  color: var(--text-color-Light-Text-Selected-category, #ff7a00);
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: Lato;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px; /* 125% */
+  text-transform: capitalize;
+  cursor: pointer;
 }
 .error {
   outline: 1px solid red;

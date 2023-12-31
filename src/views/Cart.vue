@@ -1,6 +1,9 @@
 <template>
   <div class="carts">
-    <div><Header /></div>
+    <div class="home1">
+      <Header v-if="windowWidth >= 767" />
+      <MobileHeader v-else />
+    </div>
     <div class="cartmain1">
       <div class="cart-categories">
         <div class="cartc1">
@@ -585,10 +588,12 @@ import Payment from "../components/Payment.vue";
 import { mapGetters, mapActions } from "vuex";
 import Header from "../components/Header.vue";
 import Footer from "../components/Footer.vue";
+import MobileHeader from "../components/MobileHeader.vue";
 import { StripeCheckout } from "@vue-stripe/vue-stripe";
 export default {
   data() {
     return {
+      windowWidth: window.innerWidth,
       Paymentsuccess: false,
       cartc5: false,
       loading: false,
@@ -632,7 +637,10 @@ export default {
       procee: true,
     };
   },
-  components: { Header, Footer, StripeCheckout, Payment },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.handleResize);
+  },
+  components: { Header, Footer, StripeCheckout, Payment, MobileHeader },
   watch: {
     selectedCountry(newValue) {
       this.$store.dispatch("productdetails/fetchFlagImageUrl", newValue);
@@ -681,18 +689,15 @@ export default {
     ]),
     ...mapGetters("product", ["products", "isFavorite", "Images", "favoriteProducts"]),
   },
+  mounted() {
+    window.addEventListener("resize", this.handleResize);
+  },
   methods: {
-    async handleSuccess() {
-      this.Paymentsuccess = true;
-      console.log("Payment successful!");
+    handleResize() {
+      this.windowWidth = window.innerWidth;
     },
     async Buy() {
-      try {
-        await this.$refs.checkoutRef.redirectToCheckout();
-      } catch (error) {
-        console.error("Error during checkout:", error);
-      }
-      /*      if (this.validateForm && this.isSelectionValid) {
+      if (this.validateForm && this.isSelectionValid) {
         try {
           await this.$refs.checkoutRef.redirectToCheckout();
         } catch (error) {
@@ -700,7 +705,7 @@ export default {
         }
       } else {
         this.cartc5 = true;
-      } */
+      }
     },
     validateForm() {
       this.isEmailValid = this.validateEmail(this.Email);

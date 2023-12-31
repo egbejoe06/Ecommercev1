@@ -1,6 +1,9 @@
 <template>
   <div>
-    <Header />
+    <div class="home1">
+      <Header v-if="windowWidth >= 767" />
+      <MobileHeader v-else />
+    </div>
     <div class="b2w">
       <router-link to="/">
         <div class="b2w1">
@@ -51,7 +54,7 @@
               </div>
             </div>
             <div class="err1">{{ err3 }}</div>
-            <div>
+            <div class="sg8">
               <button
                 @click.prevent="validate()"
                 :style="{
@@ -93,10 +96,12 @@
 <script>
 import Header from "../components/Header.vue";
 import Footer from "../components/Footer.vue";
+import MobileHeader from "../components/MobileHeader.vue";
 export default {
-  components: { Header, Footer },
+  components: { Header, Footer, MobileHeader },
   data() {
     return {
+      windowWidth: window.innerWidth,
       Email: "",
       Password: "",
       remember: false,
@@ -109,7 +114,16 @@ export default {
       isPopupVisible: false,
     };
   },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.handleResize);
+  },
+  mounted() {
+    window.addEventListener("resize", this.handleResize);
+  },
   methods: {
+    handleResize() {
+      this.windowWidth = window.innerWidth;
+    },
     showpassword() {
       this.IsPassword = !this.IsPassword;
     },
@@ -135,6 +149,19 @@ export default {
 };
 </script>
 <style scoped>
+@media only screen and (max-width: 600px) {
+  .forget {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    padding-bottom: 0px !important;
+    padding-top: 10px !important;
+  }
+  .sg1 {
+    left: unset !important;
+    display: flex;
+    justify-content: center;
+  }
+}
 .popup-wrapper {
   position: fixed;
   top: 0;

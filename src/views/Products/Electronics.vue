@@ -1,6 +1,9 @@
 <template>
   <div class="goods">
-    <div><Header /></div>
+    <div class="home1">
+      <Header v-if="windowWidth >= 767" />
+      <MobileHeader v-else />
+    </div>
     <div class="subheader1">
       <span>Homepage ></span>
       <span>{{ selectedCategory }}</span>
@@ -128,10 +131,12 @@
 import { mapGetters } from "vuex";
 import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
+import MobileHeader from "../../components/MobileHeader.vue";
 export default {
-  components: { Header, Footer },
+  components: { Header, Footer, MobileHeader },
   data() {
     return {
+      windowWidth: window.innerWidth,
       sortOption: "default",
       selectedCategory: null,
       searchQuery: "",
@@ -148,6 +153,9 @@ export default {
         curTrack: null,
       },
     };
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.handleResize);
   },
   created() {
     this.$store.dispatch("product/fetchProduct");
@@ -218,6 +226,9 @@ export default {
   },
 
   methods: {
+    handleResize() {
+      this.windowWidth = window.innerWidth;
+    },
     toggleFavorite(productId) {
       this.$store.dispatch("product/toggleProductFavorite", productId);
     },
@@ -320,6 +331,7 @@ export default {
   },
 
   mounted() {
+    window.addEventListener("resize", this.handleResize);
     // calc per step value
     this.totalSteps = (this.max - this.min) / this.step;
 

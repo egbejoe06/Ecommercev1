@@ -170,7 +170,7 @@ export default {
     flex: none;
   }
   .header {
-    padding: 10px 10px 20px 10px;
+    padding: 0px 10px 20px 10px;
   }
   .luminae {
     color: var(--Color-Base-Black, #000);

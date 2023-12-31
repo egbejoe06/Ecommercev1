@@ -1,0 +1,227 @@
+<template>
+  <div style="width: 100%" class="sign-in sign-up">
+    <div class="sign_up2"><MobileHeader /></div>
+    <div class="sign_up">
+      <div class="sg1">Sign up</div>
+      <div class="sign_up1">
+        <form>
+          <div>
+            <div class="sg2">
+              <label class="sg21">Name</label>
+              <div class="sg22" :class="{ error: err4 !== '' }">
+                <div class="sg211">
+                  <div>
+                    <input required type="text" placeholder="Full Name" v-model="Name" />
+                  </div>
+                  <div><img src="../assets/Vector.svg" alt="" /></div>
+                </div>
+              </div>
+              <div class="err">{{ err4 }}</div>
+            </div>
+            <div class="sg2">
+              <label class="sg21">Email</label>
+              <div class="sg22" :class="{ error: err5 !== '' }">
+                <div class="sg211">
+                  <div>
+                    <input
+                      required
+                      type="email"
+                      placeholder="Email address"
+                      v-model="SignupEmail"
+                    />
+                  </div>
+                  <div><img src="../assets/Vector.svg" alt="" /></div>
+                </div>
+              </div>
+              <div class="err">{{ err5 }}</div>
+            </div>
+            <div class="sg2">
+              <label class="sg21">Password</label>
+              <div class="sg22" :class="{ error: err6 !== '' }">
+                <div class="sg211">
+                  <div>
+                    <input
+                      :type="IsPassword ? 'password' : 'text'"
+                      placeholder="Password"
+                      v-model="SignupPassword"
+                      required
+                    />
+                  </div>
+                  <div @click="showpass()">
+                    <img src="../assets/showpass.svg" alt="" />
+                  </div>
+                </div>
+              </div>
+              <div class="err">{{ err6 }}</div>
+            </div>
+            <div class="sg3">
+              <div class="sg31">
+                <input v-model="terms" type="checkbox" />
+                <label class="sg311 sg3111"
+                  >Terms and conditions agreement should start with an introduction that
+                  lets users know they’re reading a terms and conditions agreement</label
+                >
+              </div>
+            </div>
+            <div class="sg8">
+              <button
+                :style="{
+                  backgroundColor:
+                    this.SignupEmail.length > 2 && this.SignupPassword.length > 2
+                      ? '#4172DC'
+                      : '#C4C4C4',
+                  color:
+                    this.SignupEmail.length > 2 && this.SignupPassword.length > 2
+                      ? 'White'
+                      : 'black',
+                }"
+                @click.prevent="validate2()"
+                :disabled="!terms"
+                class="sg4"
+              >
+                Sign up
+              </button>
+            </div>
+            <div class="sg6">
+              <div class="sg61"></div>
+              <div class="sg62">or</div>
+              <div class="sg63"></div>
+            </div>
+            <div class="sg8">
+              <button @click.prevent="validate3()" :disabled="!terms" class="sg5">
+                <div><img src="../assets/Google__G__Logo.png" alt="" /></div>
+                <div>Sign up by Google</div>
+              </button>
+            </div>
+          </div>
+        </form>
+        <div class="sg72">
+          <span class="sg73">Already have an account</span>
+          <router-link to="/sign-in"> <span class="sg74"> Sign in</span></router-link>
+        </div>
+      </div>
+    </div>
+    <div style="width: 100%"><Footer /></div>
+  </div>
+</template>
+
+<script>
+import MobileHeader from "../components/MobileHeader.vue";
+import Footer from "../components/Footer.vue";
+import { supabase } from "../clients/supabase";
+export default {
+  components: { MobileHeader, Footer },
+  data() {
+    return {
+      IsPassword: true,
+      err4: "",
+      err5: "",
+      err6: "",
+      Name: "",
+      SignupEmail: "",
+      SignupPassword: "",
+      terms: false,
+    };
+  },
+  methods: {
+    showpass() {
+      this.IsPassword = !this.IsPassword;
+    },
+    async validate2() {
+      this.err4 = "";
+      this.err5 = "";
+      this.err6 = "";
+      let valid = true;
+      if (this.Name.length < 2) {
+        this.err4 = "Name cannot be empty";
+        valid = false;
+      }
+      if (this.SignupEmail.length < 2) {
+        this.err5 = "Email cannot be empty";
+        valid = false;
+      }
+      if (this.SignupPassword.length < 2) {
+        this.err6 = "Password cannot be empty";
+        valid = false;
+      }
+      if (valid) {
+        try {
+          const { user, error } = await supabase.auth.signUp({
+            email: this.SignupEmail,
+            password: this.SignupPassword,
+          });
+          if (error) {
+            console.error(error);
+            return;
+          }
+          this.$emit("show-popup"),
+            {
+              SignupEmail: this.SignupEmail,
+              Name: this.Name,
+            };
+          console.log("User registered:", user);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    },
+    validate3() {
+      this.$emit("show-popup");
+    },
+  },
+};
+</script>
+<style scoped>
+@media only screen and (max-width: 600px) {
+  .sign_up2 {
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .sign_up1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .sg72 {
+    display: block;
+  }
+  .sign_up {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .sign-up {
+    display: flex !important;
+  }
+  form {
+    width: 100%;
+  }
+  .sg8 {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+  }
+  .sg4,
+  .sg5 {
+    width: 100% !important;
+  }
+  .sg22 {
+    width: 100% !important;
+  }
+  .sg211 div input {
+    width: 270px !important;
+  }
+  .sg31 {
+    flex: unset !important;
+  }
+  .sg3 {
+    justify-content: space-between;
+  }
+  .sg211 {
+    gap: unset;
+    justify-content: space-between;
+  }
+}
+</style>

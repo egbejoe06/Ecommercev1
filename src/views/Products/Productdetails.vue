@@ -1,6 +1,9 @@
 <template>
   <div class="productdetails">
-    <div><Header /></div>
+    <div class="home1">
+      <Header v-if="windowWidth >= 767" />
+      <MobileHeader v-else />
+    </div>
     <div>
       <div v-if="productDetails">
         <div class="productdetails1">
@@ -286,10 +289,12 @@
 import { mapGetters } from "vuex";
 import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
+import MobileHeader from "../../components/MobileHeader.vue";
 export default {
-  components: { Header, Footer },
+  components: { Header, Footer, MobileHeader },
   data() {
     return {
+      windowWidth: window.innerWidth,
       selectedCity: "",
       selectedCountry: "",
       sProduct: true,
@@ -319,6 +324,9 @@ export default {
         },
       ],
     };
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.handleResize);
   },
   computed: {
     siproducts() {
@@ -395,8 +403,13 @@ export default {
       this.$store.commit("productdetails/setSelectedCountry", newValue);
     },
   },
-
+  mounted() {
+    window.addEventListener("resize", this.handleResize);
+  },
   methods: {
+    handleResize() {
+      this.windowWidth = window.innerWidth;
+    },
     updateCities() {
       this.$store.dispatch("productdetails/updateCities");
     },

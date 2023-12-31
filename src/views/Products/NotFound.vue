@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div><Header /></div>
+    <div class="home1">
+      <Header v-if="windowWidth >= 767" />
+      <MobileHeader v-else />
+    </div>
     <div>
       <div class="nf1">
         <router-link to="/women"><span>Women</span></router-link>
@@ -47,8 +50,25 @@
 <script>
 import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
+import MobileHeader from "../../components/MobileHeader.vue";
 export default {
-  components: { Header, Footer },
+  components: { Header, Footer, MobileHeader },
+  data() {
+    return {
+      windowWidth: window.innerWidth,
+    };
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.handleResize);
+  },
+  methods: {
+    handleResize() {
+      this.windowWidth = window.innerWidth;
+    },
+  },
+  mounted() {
+    window.addEventListener("resize", this.handleResize);
+  },
 };
 </script>
 <style>

@@ -16,6 +16,7 @@ import Best from '../views/Products/Best.vue'
 import NotFound from '../views/Products/NotFound.vue'
 import Productdetails from '../views/Products/Productdetails.vue'
 import Cart from '../views/Cart.vue'
+import Register from '../views/Register.vue'
 import { supabase } from '../clients/supabase'
 
 const routes = [
@@ -32,7 +33,7 @@ const routes = [
   {
     path: '/sign-up',
     name: 'Signup',
-    component: Signup
+    component: Register
   },
   {
     path: '/forgetpassword',
@@ -102,7 +103,7 @@ const routes = [
   {
     path: '/sign-up',
     name: 'Signup',
-    component: Signup
+    component: Register
   },
   {
     path: '/Cart',

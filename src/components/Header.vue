@@ -199,6 +199,9 @@ export default {
 };
 </script>
 <style>
+select {
+  background-color: transparent;
+}
 .cate54 {
   color: var(--base-white, #fff);
   text-align: center;

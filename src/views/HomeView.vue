@@ -13,9 +13,11 @@
       </router-link>
     </div>
     <div class="sign" :style="{ opacity: isPopupVisible ? '50%' : '100%' }">
-      <div class="sign_1"><SignIn /></div>
+      <div class="sign_1" v-show="Signin">
+        <SignIn />
+      </div>
       <div class="sign1"></div>
-      <div><Signup @show-popup="togglePopup" /></div>
+      <div v-show="Signup"><Signup @show-popup="togglePopup" /></div>
     </div>
     <Popup
       v-if="isPopupVisible"
@@ -44,6 +46,8 @@ export default {
       Name: "",
       SignupEmail: "",
       windowWidth: window.innerWidth,
+      Signin: true,
+      Signup: false,
     };
   },
   mounted() {
@@ -86,9 +90,6 @@ export default {
   .sign1 {
     display: none;
   }
-  .sign-up {
-    display: none;
-  }
   .sign-in {
     align-items: center;
   }
@@ -97,11 +98,14 @@ export default {
     align-items: flex-start;
     width: 100%;
   }
+  .sign-up {
+    display: none;
+  }
   .sign {
     padding: 20px 20px 0px 10px !important;
   }
   .sg7 {
-    padding-left: 20px;
+    display: none;
   }
 }
 .b2w3 {
