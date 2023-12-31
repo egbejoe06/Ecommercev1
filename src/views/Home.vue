@@ -552,6 +552,9 @@ export default {
 </script>
 <style>
 @media only screen and (max-width: 600px) {
+  .header3 .menu {
+    left: unset !important;
+  }
   .mn52 {
     padding: 14px 10px !important;
   }
