@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%" class="sign-in sign-up">
+  <div class="sign-in sign-up">
     <div class="sign_up2"><MobileHeader /></div>
     <div class="sign_up">
       <div class="sg1">Sign up</div>
