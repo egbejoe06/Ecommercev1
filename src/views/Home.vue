@@ -30,7 +30,7 @@
       </div>
       <div class="main51">
         <div class="mn51">
-          <div class="mn52">
+          <div class="mn52 mn59">
             <div class="mn53">The most famous sport brands</div>
             <div class="mn54">Get in gym essentials</div>
             <div class="mn55">Exlopre all category</div>
@@ -158,6 +158,65 @@
             </div>
           </div>
         </div>
+        <Swiper class="main31 main32">
+          <swiper-slide class="mn31">
+            <div class="mn32">
+              <div><img src="../assets/Newarivals.svg" alt="" /></div>
+              <div class="mn33">New Arivals</div>
+            </div>
+            <div class="mn39">
+              <div><img src="../assets/4_org_zoom1.png" alt="" /></div>
+              <div class="mn34">
+                <div class="mn35">
+                  <div class="mn36">Cool & Sexy Calvin Klein</div>
+                  <div class="mn37">Dotted dress-Casual</div>
+                </div>
+                <div class="mn38">
+                  <div>$89</div>
+                  <div>Shop Now</div>
+                </div>
+              </div>
+            </div>
+          </swiper-slide>
+          <swiper-slide class="mn31">
+            <div class="mn32" style="visibility: hidden">
+              <div><img src="../assets/Newarivals.svg" alt="" /></div>
+              <div class="mn33">New Arivals</div>
+            </div>
+            <div class="mn39">
+              <div><img src="../assets/4_org_zoom2.png" alt="" /></div>
+              <div class="mn34">
+                <div class="mn35">
+                  <div class="mn36">Cool & Sexy Calvin Klein</div>
+                  <div class="mn37">Dotted dress-Casual</div>
+                </div>
+                <div class="mn38">
+                  <div>$89</div>
+                  <div>Shop Now</div>
+                </div>
+              </div>
+            </div>
+          </swiper-slide>
+          <swiper-slide class="mn31">
+            <div class="mn32">
+              <div><img src="../assets/Newarivals.svg" alt="" /></div>
+              <div class="mn33">New Arivals</div>
+            </div>
+            <div class="mn39">
+              <div><img src="../assets/4_org_zoom3.png" alt="" /></div>
+              <div class="mn34">
+                <div class="mn35">
+                  <div class="mn36">beige coat Zara</div>
+                  <div class="mn37">Cream-Brown-Formal</div>
+                </div>
+                <div class="mn38">
+                  <div>$102</div>
+                  <div>Shop Now</div>
+                </div>
+              </div>
+            </div>
+          </swiper-slide>
+        </Swiper>
       </div>
       <div class="main4">
         <div class="flashsale">
@@ -198,6 +257,38 @@
             </div>
           </div>
         </div>
+        <Swiper class="fsales fsales2">
+          <swiper-slide v-for="top in products.slice(33, 37)" class="fsales1">
+            <router-link :to="{ name: 'Productdetails', params: { id: top.id } }"
+              ><div><img class="mn41" :src="top.thumbnail" alt="" /></div
+            ></router-link>
+            <div class="fs2">
+              <router-link :to="{ name: 'Productdetails', params: { id: top.id } }">
+                <div class="fs21">{{ top.title }}</div></router-link
+              >
+              <div class="fs22">{{ top.description }}</div>
+              <div>
+                <div>
+                  <img src="../assets/star.svg" alt="" /><img
+                    src="../assets/star.svg"
+                    alt=""
+                  /><img src="../assets/star.svg" alt="" /><img
+                    src="../assets/star.svg"
+                    alt=""
+                  />
+                  ({{ top.stock }})
+                </div>
+              </div>
+              <div class="fs3">
+                <div class="fs31">
+                  ${{ calculateNormalPrice(top.discountPercentage, top.price) }}
+                </div>
+                <div class="fs32">${{ top.price }}</div>
+                <div class="fs33">-{{ top.discountPercentage }}%</div>
+              </div>
+            </div>
+          </swiper-slide>
+        </Swiper>
       </div>
       <div class="main5">
         <div class="mn51">
@@ -465,12 +556,15 @@ export default {
     width: 100%;
   }
   .main2 {
-    padding: 0px 20px !important;
+    padding: 10px 20px !important;
     overflow: hidden;
   }
-  .fsales {
-    animation: slideAnimation 6s linear infinite;
+  .main2 .fsales {
+    animation: slideAnimation 15s linear infinite;
     flex-wrap: unset !important;
+  }
+  .mn59 {
+    height: 252px !important;
   }
   .fsales1 {
     transition: background-color 0.5s;
@@ -483,11 +577,46 @@ export default {
     overflow: hidden;
   }
   .main31 {
+    display: none !important;
     gap: 10px !important;
+  }
+  .main3 .swiper {
+    margin-left: unset !important;
+    margin-right: unset !important;
+  }
+  .main32 .swiper-slide {
+    flex-shrink: unset !important;
+  }
+  .main32 .swiper-wrapper {
+    gap: 20px;
+  }
+  .main32 {
+    display: flex !important;
   }
   .main4 {
     overflow: hidden;
-    padding: 0px 10px !important;
+    padding: 10px 10px !important;
+  }
+  .main4 .fsales {
+    display: none !important;
+    gap: 30px !important;
+    flex-wrap: unset !important;
+    align-self: unset !important;
+  }
+  .main4 .fsales2 {
+    display: flex !important;
+    width: 100%;
+  }
+  .main4 .fsales .main8 {
+    display: none !important;
+  }
+  .main4 .swiper-slide {
+    flex-shrink: unset !important;
+  }
+  .main4 .swiper-wrapper {
+    gap: 30px;
+    padding-left: 20px;
+    padding-bottom: 20px;
   }
   .main8 {
     display: none !important;
@@ -505,13 +634,16 @@ export default {
     }
     16.666%,
     50% {
-      transform: translateX(-100%);
+      transform: translateX(120%);
     }
     33.333%,
     66.666% {
-      transform: translateX(-200%);
+      transform: translateX(-120%);
     }
   }
+}
+.fsales2 {
+  display: none !important;
 }
 .mn84 {
   color: var(--text-color-light-tritary-text, #9d9d9d);
@@ -753,6 +885,9 @@ export default {
   align-self: stretch;
   align-items: center;
   align-content: center;
+}
+.main32 {
+  display: none;
 }
 .mn38 {
   display: flex;
