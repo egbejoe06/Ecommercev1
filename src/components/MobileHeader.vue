@@ -1,7 +1,24 @@
 <template>
   <div class="header">
-    <div @click="showHeader3">
+    <div v-show="show" @click="showHeader3">
       <img src="../assets/Menueicon.svg" alt="" />
+    </div>
+    <div v-show="hide" @click="hideHeader3">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+      >
+        <path
+          d="M16.2431 7.75738L7.75781 16.2427M16.2431 16.2426L7.75781 7.75732"
+          stroke="#28303F"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
     </div>
     <div>
       <router-link to="/">
@@ -77,6 +94,8 @@ export default {
   components: { Menu },
   data() {
     return {
+      show: true,
+      hide: false,
       header3: false,
       searchCategories: "All categories",
       searched: "",
@@ -106,6 +125,13 @@ export default {
     ...mapActions("product", ["setSearchQuery", "resetSearchQuery"]),
     showHeader3() {
       this.header3 = !this.header3;
+      this.show = false;
+      this.hide = true;
+    },
+    hideHeader3() {
+      this.header3 = !this.header3;
+      this.hide = false;
+      this.show = true;
     },
     searchCategory() {
       if (this.searchCategories && this.searched) {

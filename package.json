@@ -13,6 +13,7 @@
     "@supabase/supabase-js": "^2.39.1",
     "@vue-stripe/vue-stripe": "^4.5.0",
     "vue": "^3.3.8",
+    "vue-awesome-swiper": "^5.0.1",
     "vue-router": "^4.2.5",
     "vuex": "^4.0.2",
     "vuex-persist": "^3.1.3"

@@ -4,7 +4,7 @@
       <Header v-if="windowWidth >= 767" />
       <MobileHeader v-else />
     </div>
-    <div><Menu /></div>
+    <div class="mEnu"><Menu /></div>
     <div class="main">
       <div class="main1">
         <div class="main11">
@@ -26,6 +26,24 @@
             </div>
             <div class="mn29">19 Jul-30 Jul</div>
           </div>
+        </div>
+      </div>
+      <div class="main51">
+        <div class="mn51">
+          <div class="mn52">
+            <div class="mn53">The most famous sport brands</div>
+            <div class="mn54">Get in gym essentials</div>
+            <div class="mn55">Exlopre all category</div>
+          </div>
+          <div><img class="mn56" src="../assets/Rectangle1078.png" alt="" /></div>
+        </div>
+        <div class="mn51">
+          <div class="mn52 mn58">
+            <div class="mn53">Never-Ending Summer</div>
+            <div class="mn54">Throwback Shirts & all-day dressed</div>
+            <div class="mn55">Exlopre all category</div>
+          </div>
+          <div><img class="mn56 mn57" src="../assets/Rectangle1079.png" alt="" /></div>
         </div>
       </div>
       <div class="main2">
@@ -249,15 +267,23 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import { Swiper, SwiperSlide } from "vue-awesome-swiper";
+import "swiper/swiper-bundle.css";
 import Menu from "../components/Menu.vue";
 import Header from "../components/Header.vue";
 import Footer from "../components/Footer.vue";
 import MobileHeader from "../components/MobileHeader.vue";
 export default {
-  components: { Header, Footer, Menu, MobileHeader },
+  components: { Header, Footer, Menu, MobileHeader, Swiper, SwiperSlide },
   data() {
     return {
       windowWidth: window.innerWidth,
+      swiperOptions: {
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+      },
       tops: [
         {
           img: "../src/assets/photo1.png",
@@ -422,6 +448,71 @@ export default {
 };
 </script>
 <style>
+@media only screen and (max-width: 600px) {
+  .mEnu {
+    display: none;
+  }
+  .main1 {
+    display: none;
+  }
+  .main51 {
+    display: flex !important;
+    padding: 10px 10px !important;
+  }
+  .flashsale {
+    gap: unset !important;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .main2 {
+    padding: 0px 20px !important;
+    overflow: hidden;
+  }
+  .fsales {
+    animation: slideAnimation 6s linear infinite;
+    flex-wrap: unset !important;
+  }
+  .fsales1 {
+    transition: background-color 0.5s;
+  }
+  .main5 {
+    display: none !important;
+  }
+  .main3 {
+    padding: 0px 10px !important;
+    overflow: hidden;
+  }
+  .main31 {
+    gap: 10px !important;
+  }
+  .main4 {
+    overflow: hidden;
+    padding: 0px 10px !important;
+  }
+  .main8 {
+    display: none !important;
+  }
+  .mn56 {
+    width: 204.75px !important;
+  }
+  .main6 {
+    display: none !important;
+  }
+  @keyframes slideAnimation {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    16.666%,
+    50% {
+      transform: translateX(-100%);
+    }
+    33.333%,
+    66.666% {
+      transform: translateX(-200%);
+    }
+  }
+}
 .mn84 {
   color: var(--text-color-light-tritary-text, #9d9d9d);
   font-feature-settings: "clig" off, "liga" off;
@@ -587,6 +678,15 @@ export default {
 }
 .main5 {
   display: flex;
+  padding: var(--spacing-0, 0px) 90px;
+  align-items: center;
+  align-content: center;
+  gap: 20px var(--spacing-5, 20px);
+  align-self: stretch;
+  flex-wrap: wrap;
+}
+.main51 {
+  display: none;
   padding: var(--spacing-0, 0px) 90px;
   align-items: center;
   align-content: center;

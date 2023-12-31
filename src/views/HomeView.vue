@@ -13,11 +13,11 @@
       </router-link>
     </div>
     <div class="sign" :style="{ opacity: isPopupVisible ? '50%' : '100%' }">
-      <div class="sign_1" v-show="Signin">
+      <div class="sign_1">
         <SignIn />
       </div>
       <div class="sign1"></div>
-      <div v-show="Signup"><Signup @show-popup="togglePopup" /></div>
+      <div><Signup @show-popup="togglePopup" /></div>
     </div>
     <Popup
       v-if="isPopupVisible"
@@ -46,8 +46,6 @@ export default {
       Name: "",
       SignupEmail: "",
       windowWidth: window.innerWidth,
-      Signin: true,
-      Signup: false,
     };
   },
   mounted() {
@@ -185,7 +183,7 @@ export default {
   flex: 1 0 0;
   border: none;
   position: relative;
-  left: 800px;
+  /* left: 800px */
 }
 .footer21 {
   display: flex;
