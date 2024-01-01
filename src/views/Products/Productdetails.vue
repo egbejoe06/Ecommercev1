@@ -4,7 +4,7 @@
       <Header v-if="windowWidth >= 767" />
       <MobileHeader v-else />
     </div>
-    <div>
+    <div class="pd9">
       <div v-if="productDetails">
         <div class="productdetails1">
           <div class="pd1">
@@ -523,6 +523,89 @@ export default {
 };
 </script>
 <style>
+@media only screen and (max-width: 600px) {
+  .productdetails1 {
+    padding: 0px 10px !important;
+    flex-direction: column;
+  }
+  .pd2 {
+    padding: 10px 10px !important;
+  }
+  .pd1 {
+    padding: 0px 10px !important;
+  }
+  .pd1-img {
+    align-items: center !important;
+    flex-direction: column-reverse !important;
+    width: 100%;
+  }
+  .pd61 {
+    flex-wrap: unset !important;
+  }
+  .pd1-img1 span img {
+    width: 50px !important;
+  }
+  .pd1-img1 {
+    flex-direction: row !important;
+    justify-content: space-between;
+  }
+  .pd9 {
+    width: 100% !important;
+  }
+  .productdetail2 {
+    padding: 30px 10px 0px 10px !important;
+  }
+  .pd81 {
+    gap: 50px !important;
+  }
+  .productdetail2 span {
+    display: block;
+    width: 180px;
+  }
+  .pd7 {
+    padding: 0px !important;
+    gap: 0px !important;
+    justify-content: space-between;
+  }
+  .pd21 {
+    gap: 0px !important;
+    justify-content: space-between;
+  }
+  progress {
+    width: 50px !important;
+  }
+  .rating-summary {
+    padding: 0px !important;
+    gap: 20px !important;
+  }
+  .com4 {
+    padding: 0px !important;
+  }
+  .ship4 {
+    padding: 0px !important;
+  }
+  .pd1-img2 img {
+    height: 250px !important;
+  }
+  .ship33 {
+    flex-direction: column !important;
+  }
+  .siproduct {
+    padding: 20px 0px !important;
+  }
+  .sip11 {
+    grid-template-columns: repeat(1, 1fr) !important;
+  }
+  .buy {
+    flex-direction: column;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    align-content: center !important;
+  }
+  .sip9 {
+    width: 100%;
+  }
+}
 .ship4 {
   padding-left: 200px;
 }
