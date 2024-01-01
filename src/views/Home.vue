@@ -552,6 +552,9 @@ export default {
 </script>
 <style>
 @media only screen and (max-width: 600px) {
+  .flashsale1 {
+    font-size: 20px !important;
+  }
   .header3 .menu {
     left: unset !important;
   }
@@ -625,6 +628,7 @@ export default {
     align-self: unset !important;
   }
   .main4 .fsales2 {
+    padding-top: 10px;
     display: flex !important;
     width: 100%;
   }

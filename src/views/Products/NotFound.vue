@@ -18,7 +18,7 @@
       </div>
       <div class="nf2">
         <div class="nf3">
-          <img src="../../assets/shutterstock-6442990841.png" alt="" />
+          <img class="nf36" src="../../assets/shutterstock-6442990841.png" alt="" />
         </div>
         <div class="nf3">
           <div class="nf31">
@@ -72,6 +72,19 @@ export default {
 };
 </script>
 <style>
+@media only screen and (max-width: 600px) {
+  .nf1 {
+    display: none !important;
+  }
+  .nf2 {
+    flex-direction: column;
+    height: auto !important;
+    padding: 0px 20px !important;
+  }
+  .nf36 {
+    height: 308px;
+  }
+}
 .nf35 {
   color: var(--text-color-light-secondary-text, #555);
   font-feature-settings: "clig" off, "liga" off;
