@@ -110,7 +110,7 @@
           <div v-show="sProduct" class="pd7">
             <div>
               <span><h4>Product Description</h4></span>
-              <span>{{ productDetails.description }}</span>
+              <span class="pd71">{{ productDetails.description }}</span>
             </div>
             <div>
               <span><h4>Product Brand</h4></span>
@@ -558,14 +558,20 @@ export default {
   .pd81 {
     gap: 50px !important;
   }
-  .productdetail2 span {
-    display: block;
-    width: 180px;
+  .com-ments {
+    gap: 8px !important;
+  }
+  .ship4 {
+    display: none;
   }
   .pd7 {
     padding: 0px !important;
     gap: 0px !important;
     justify-content: space-between;
+  }
+  .pd71 {
+    width: 180px;
+    display: block;
   }
   .pd21 {
     gap: 0px !important;
