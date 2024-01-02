@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import Home from '../views/Home.vue'
 import Signup from '../views/Signup.vue'
 import ForgetPass from '../views/ForgetPass.vue'
+import Resetpass from '../views/Resetpass.vue'
 import Products from '../views/Products/Products.vue'
 import Women from '../views/Products/Women.vue'
 import Men from '../views/Products/Men.vue'
@@ -39,6 +40,11 @@ const routes = [
     path: '/forgetpassword',
     name: 'Forgetpass',
     component: ForgetPass
+  },
+  {
+    path: '/Reset',
+    name: 'Reset',
+    component: Resetpass
   },
   {
     path: '/Products',

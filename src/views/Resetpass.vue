@@ -35,9 +35,28 @@
               </div>
               <div class="err">{{ err2 }}</div>
             </div>
+            <div class="sg2">
+              <label class="sg21">New Password</label>
+              <div :class="{ error: err2 !== '' }" class="sg22">
+                <div class="sg211">
+                  <div>
+                    <input
+                      :type="IsPassword ? 'password' : 'text'"
+                      placeholder="New Password"
+                      v-model="Password"
+                      required
+                    />
+                  </div>
+                  <div @click="showpassword()">
+                    <img src="../assets/showpass.svg" alt="" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="err1">{{ err3 }}</div>
             <div class="sg8">
               <button
-                @click.prevent="validate()"
+                @click.prevent="validate1()"
                 :style="{
                   backgroundColor:
                     this.Email.length > 2 && this.Password.length > 2
@@ -48,7 +67,7 @@
                 }"
                 class="sg4"
               >
-                Reset password
+                Reset
               </button>
             </div>
             <div class="fg2">
@@ -87,8 +106,10 @@ export default {
       Email: "",
       Password: "",
       remember: false,
+      IsPassword: true,
       emailerr: true,
       err1: false,
+      passerr: true,
       err2: "",
       err3: "",
       isPopupVisible: false,
@@ -104,21 +125,34 @@ export default {
     handleResize() {
       this.windowWidth = window.innerWidth;
     },
-    async validate() {
+    showpassword() {
+      this.IsPassword = !this.IsPassword;
+    },
+    async validate1() {
       this.err2 = "";
+      this.err3 = "";
 
       if (this.Email.length < 2) {
         this.err2 = "Wrong email address";
+      }
+      if (this.Password.length < 2) {
+        this.err3 = "Password cannot be Empty";
       } else {
         try {
-          const { user, error } = await supabase.auth.resetPasswordForEmail(this.Email, {
-            redirectTo: "https://ecommerce-nu-hazel.vercel.app/forgetpassword",
+          console.log("Update User Payload:", {
+            password: this.Password,
+          });
+          const { user, error } = await supabase.auth.updateUser({
+            password: this.Password,
           });
           if (error) {
-            console.log(error);
+            console.error("Update User Error:", error);
+          } else {
+            console.log("Update User Success:", user);
+            this.$router.push("/sign-in");
           }
         } catch (error) {
-          console.error(error);
+          console.log(error);
         }
       }
     },
