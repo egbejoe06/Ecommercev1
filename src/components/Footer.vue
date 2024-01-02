@@ -71,6 +71,9 @@ export default {};
   .footer22 {
     display: none !important;
   }
+  .footer2 {
+    padding-bottom: 0px !important;
+  }
 }
 .footer22 {
   justify-content: space-between;

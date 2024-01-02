@@ -1,6 +1,6 @@
 <template>
   <div class="carts">
-    <div class="home1">
+    <div class="home1 carts1">
       <Header v-if="windowWidth >= 767" />
       <MobileHeader v-else />
     </div>
@@ -38,7 +38,7 @@
               <span class="cmain12">{{ carts.length }}</span>
             </div>
             <div class="cartm1">
-              <div v-for="cart in carts">
+              <div class="cart_m1" v-for="cart in carts">
                 <div class="cartm11">
                   <div class="cartm13">
                     <img class="cartm12" :src="cart.thumbnail" alt="" />
@@ -556,7 +556,7 @@
         </div>
       </div>
     </div>
-    <div class="siproduct">
+    <div class="siproduct cart_m2">
       <div class="sip1">You might also like</div>
       <div class="sip11">
         <div class="sip2" v-for="product in siproducts.slice(0, 4)" :key="product.id">
@@ -897,6 +897,110 @@ export default {
 };
 </script>
 <style>
+@media only screen and (max-width: 600px) {
+  .cartmain1 {
+    width: 100%;
+    align-self: unset !important;
+  }
+  .cartmain {
+    padding: 20px 0px !important;
+    flex-direction: column !important;
+  }
+  .cart-categories {
+    padding: 0px 10px !important;
+  }
+  .cm1 {
+    width: 100%;
+    padding: 0px 10px;
+  }
+  .cartc1 {
+    width: 100%;
+    gap: unset !important;
+  }
+  .cartc3 {
+    width: 100%;
+    font-size: 10px !important;
+  }
+  .cartc4 {
+    width: 100%;
+    font: 10px !important;
+  }
+  .cm2 {
+    width: 100%;
+    align-items: center !important;
+  }
+  .carts1 {
+    width: 100%;
+  }
+  .cartm11 {
+    gap: unset !important;
+    justify-content: space-between;
+    flex-wrap: unset !important;
+  }
+  .cart_m1 {
+    width: 100%;
+  }
+  .cartm21 {
+    width: unset !important;
+  }
+  .cartm1 {
+    width: 100%;
+  }
+  .coupon {
+    padding: 0px 10px !important;
+  }
+  .coupon1 {
+    width: 110px !important;
+  }
+  .coupon1 input {
+    width: 100%;
+  }
+  .cart_m2 {
+    padding: 20px 10px !important;
+  }
+  .cCustomer {
+    width: 100%;
+    padding: 0px 20px !important;
+  }
+  .customer-info {
+    width: 100%;
+  }
+  .ci6 {
+    width: 100%;
+    flex-direction: column;
+  }
+  .ci2 {
+    width: 100%;
+  }
+  .ci3 {
+    width: 100%;
+  }
+  .ci7 {
+    width: 100% !important;
+  }
+  .cproduct33 {
+    flex-wrap: unset !important;
+  }
+  .cproduct2 {
+    padding: 10px !important;
+  }
+  .cproduct331 {
+    width: unset !important;
+    flex-wrap: unset !important;
+  }
+  .cProduct {
+    padding: 0px 10px;
+    width: 100%;
+  }
+  .ship35,
+  .ship36 {
+    width: 100% !important;
+  }
+  .cShipping {
+    height: unset !important;
+    padding: 0px 20px !important;
+  }
+}
 .cartc5 {
   color: #ff2e00 !important;
 }
