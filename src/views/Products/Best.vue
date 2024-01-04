@@ -9,6 +9,9 @@
       <span>{{ selectedCategory }}</span>
     </div>
     <div class="subheader">
+      <div class="sm11" v-if="windowWidth < 767" @click="togglemenu()">
+        <div><img src="../../assets/Vector1.svg" alt="" /></div>
+      </div>
       <div class="sh1">
         <span class="sh11">Electronics</span>
         <span class="sh12">{{ filteredProducts.length }} items</span>
@@ -24,7 +27,7 @@
       </div>
     </div>
     <div class="products">
-      <div class="sideMenu">
+      <div class="sideMenu" v-show="sidemenu">
         <div class="smenu1">
           <div class="sm11">
             <div><img src="../../assets/Vector1.svg" alt="" /></div>
@@ -71,7 +74,7 @@
           </div>
         </div>
       </div>
-      <div class="mainmenu">
+      <div class="mainmenu" v-show="mainmenu">
         <div class="mm" v-for="product in sortedProducts.slice(0, 12)" :key="product.id">
           <div class="mm-1">
             <router-link :to="{ name: 'Productdetails', params: { id: product.id } }">
@@ -120,9 +123,11 @@ import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
 import MobileHeader from "../../components/MobileHeader.vue";
 export default {
-  components: { Header, Footer },
+  components: { Header, Footer, MobileHeader },
   data() {
     return {
+      sidemenu: true,
+      mainmenu: true,
       windowWidth: window.innerWidth,
       sortOption: "default",
       selectedCategory: null,
@@ -146,6 +151,9 @@ export default {
   },
   created() {
     this.$store.dispatch("product/fetchProduct");
+    if (this.windowWidth < 767) {
+      this.sidemenu = false;
+    }
   },
   beforeRouteLeave(to, from, next) {
     this.$store.dispatch("product/resetSearchQuery");
@@ -191,6 +199,10 @@ export default {
   },
 
   methods: {
+    togglemenu() {
+      this.sidemenu = !this.sidemenu;
+      this.mainmenu = !this.mainmenu;
+    },
     handleResize() {
       this.windowWidth = window.innerWidth;
     },
