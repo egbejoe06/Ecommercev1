@@ -554,12 +554,22 @@ export default {
   .subheader {
     padding: 0px 10px !important;
     background: transparent !important;
+    border-radius: var(--Spacing-1, 4px);
+    border: 1px solid var(--Button-Stroke-stroke, #d9d9d9);
   }
   .sh12 {
     display: none;
   }
   .mm-1 {
     width: 100%;
+  }
+  .sideMenu {
+    box-shadow: 5px 0px 14px 0px rgba(0, 0, 0, 0.16);
+  }
+  .smenu1,
+  .smenu2 {
+    width: 100%;
+    align-items: center;
   }
   .sh1 {
     background: transparent !important;
