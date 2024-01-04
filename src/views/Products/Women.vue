@@ -546,7 +546,7 @@ export default {
 @media only screen and (max-width: 600px) {
   .mainmenu {
     padding-top: 10px !important;
-    grid-template-columns: repeat(1, 1fr) !important;
+    grid-template-columns: repeat(2, 1fr) !important;
   }
   .subheader1 {
     display: none !important;
@@ -585,6 +585,7 @@ export default {
     width: 100% !important;
   }
   .isFavorite2 {
+    width: 100%;
     max-width: unset !important;
   }
 }
