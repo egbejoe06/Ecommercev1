@@ -433,7 +433,7 @@
                 <span class="cm32">Tax</span><span class="cm33">$0</span>
               </div>
               <div v-if="discount" class="cm31">
-                <span class="cm32">Discount Price</span><span class="cm33">$0</span>
+                <span class="cm32">Discount Price</span><span class="cm33">$20</span>
               </div>
               <div v-else class="cm34">
                 <span class="cm32">Discount Price</span>
@@ -550,9 +550,9 @@
         <div v-show="procee" class="coupon4" @click="proceed()">Proceed</div>
         <div class="coupon3">
           <div class="coupon1">
-            <input type="text" placeholder="Enter Coupon Code" />
+            <input v-model="discountCode" type="text" placeholder="Enter Coupon Code" />
           </div>
-          <div class="coupon2">Login and Apply code</div>
+          <div @click="checkdiscount()" class="coupon2">Apply code</div>
         </div>
       </div>
     </div>
@@ -628,6 +628,8 @@ export default {
       selectedCity: "",
       selectedCountry: "",
       discount: false,
+      giftCode: "112233",
+      discountCode: "",
       gift: false,
       checkedout: false,
       cCard: true,
@@ -673,7 +675,7 @@ export default {
     },
     Total1() {
       const baseTotal = this.calculatedTotals.reduce((acc, total) => acc + total, 0);
-      return this.gift ? baseTotal + 10.9 : baseTotal;
+      return (this.gift ? baseTotal + 10.9 : baseTotal) + (this.discount ? -20 : 0);
     },
     ...mapGetters("productdetails", [
       "total",
@@ -693,6 +695,12 @@ export default {
     window.addEventListener("resize", this.handleResize);
   },
   methods: {
+    checkdiscount() {
+      if (this.giftCode == this.discountCode) {
+        this.discount = true;
+      } else {
+      }
+    },
     handleResize() {
       this.windowWidth = window.innerWidth;
     },

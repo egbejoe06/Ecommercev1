@@ -88,7 +88,7 @@
               <div class="sg63"></div>
             </div>
             <div class="sg8">
-              <button @click.prevent="validate3()" :disabled="!terms" class="sg5">
+              <button @click.prevent="validate4()" class="sg5">
                 <div><img src="../assets/Google__G__Logo.png" alt="" /></div>
                 <div>Sign up by Google</div>
               </button>
@@ -124,6 +124,16 @@ export default {
     };
   },
   methods: {
+    async validate4() {
+      console.log("hello");
+      const { user, error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+      });
+      console.log(user);
+      if (error) {
+        console.error(error);
+      }
+    },
     showpass() {
       this.IsPassword = !this.IsPassword;
     },
