@@ -588,6 +588,23 @@ export default {
     width: 100%;
     max-width: unset !important;
   }
+  .mm5,
+  .mm2,
+  .mm6 {
+    font-size: 9.625px !important;
+    line-height: 13.75px !important; /* 166.667% */
+  }
+  .mm7 {
+    font-size: 8.25px !important;
+    line-height: 13.75px !important; /* 166.667% */
+  }
+  .mm3 {
+    font-size: 6.875px !important;
+    line-height: 13.75px !important; /* 200% */
+  }
+  .isFavorite1 {
+    display: none;
+  }
 }
 .isFavorite2 {
   max-width: 250px;
