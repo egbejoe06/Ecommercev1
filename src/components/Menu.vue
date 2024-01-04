@@ -552,6 +552,9 @@ export default {};
     position: relative;
     width: 100%;
   }
+  .dropdown1 {
+    width: 100%;
+  }
   .menu {
     width: 100% !important;
     padding: 16px !important;

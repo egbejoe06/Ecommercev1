@@ -105,6 +105,15 @@ export default {
     };
   },
   methods: {
+    async validate1() {
+      const { user, error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+      });
+      console.log(user);
+      if (error) {
+        console.error(error);
+      }
+    },
     showpassword() {
       this.IsPassword = !this.IsPassword;
     },
@@ -142,10 +151,13 @@ export default {
       const user = await supabase.auth.signOut();
       console.log(user);
     },
-    validate1() {
-      setTimeout(() => {
+    async validate1() {
+      const { user, session, error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+      });
+      /*      setTimeout(() => {
         this.$router.push("/");
-      }, 500);
+      }, 500); */
     },
   },
 };
