@@ -5,7 +5,7 @@
       <MobileHeader v-else />
     </div>
     <div class="products">
-      <div class="sideMenu">
+      <div class="sideMenu" v-show="sidemenu">
         <div class="smenu1">
           <div class="sm11">
             <div><img src="../../assets/Vector1.svg" alt="" /></div>
@@ -128,6 +128,7 @@ export default {
   components: { Header, Footer, MobileHeader },
   data() {
     return {
+      sidemenu: true,
       windowWidth: window.innerWidth,
       sortOption: "default",
       searchQuery: "",
@@ -147,6 +148,9 @@ export default {
   },
   created() {
     this.$store.dispatch("product/fetchProduct");
+    if (this.windowWidth < 767) {
+      this.sidemenu = false;
+    }
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.handleResize);
