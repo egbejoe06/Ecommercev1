@@ -155,6 +155,7 @@ export default {
     async validate3() {
       const { user, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
+        redirectTo: "https://ecommerce-nu-hazel.vercel.app",
       });
       console.log(user);
       if (error) {

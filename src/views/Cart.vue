@@ -584,11 +584,11 @@
   </div>
 </template>
 <script>
+import { defineAsyncComponent } from "vue";
 import Payment from "../components/Payment.vue";
 import { mapGetters, mapActions } from "vuex";
 import Header from "../components/Header.vue";
 import Footer from "../components/Footer.vue";
-import MobileHeader from "../components/MobileHeader.vue";
 import { StripeCheckout } from "@vue-stripe/vue-stripe";
 export default {
   data() {
@@ -642,7 +642,13 @@ export default {
   beforeDestroy() {
     window.removeEventListener("resize", this.handleResize);
   },
-  components: { Header, Footer, StripeCheckout, Payment, MobileHeader },
+  components: {
+    Header,
+    Footer,
+    StripeCheckout,
+    Payment,
+    MobileHeader: defineAsyncComponent(() => import("../components/MobileHeader.vue")),
+  },
   watch: {
     selectedCountry(newValue) {
       this.$store.dispatch("productdetails/fetchFlagImageUrl", newValue);

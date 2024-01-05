@@ -77,6 +77,7 @@ export default {
 <style>
 @media only screen and (max-width: 600px) {
   .home1 {
+    width: 100%;
     padding: 0px 10px;
   }
   .sign_1 {
