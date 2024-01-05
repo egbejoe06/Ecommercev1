@@ -108,6 +108,7 @@ export default {
     async validate1() {
       const { user, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
+        redirectTo: "https://ecommerce-nu-hazel.vercel.app",
       });
       console.log(user);
       if (error) {
@@ -150,14 +151,6 @@ export default {
     async logout() {
       const user = await supabase.auth.signOut();
       console.log(user);
-    },
-    async validate1() {
-      const { user, session, error } = await supabase.auth.signInWithOAuth({
-        provider: "google",
-      });
-      /*      setTimeout(() => {
-        this.$router.push("/");
-      }, 500); */
     },
   },
 };
