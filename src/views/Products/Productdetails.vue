@@ -286,6 +286,7 @@
 </template>
 
 <script>
+import { supabase } from "../../clients/supabase";
 import { mapGetters } from "vuex";
 import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
@@ -428,12 +429,14 @@ export default {
         this.carts.push({ ...product, Quantity, Price });
       }
     },
-    addToCart(productDetails) {
+    async addToCart(productDetails) {
       const isProductInCart = this.carts.some((item) => item.id === productDetails.id);
       const Quantity = this.number;
       const Price = this.normalPrice;
+      const local = await supabase.auth.getUser();
       if (!isProductInCart) {
         this.carts.push({ ...productDetails, Quantity, Price });
+        console.log(local);
       }
     },
     add(productDetails) {
