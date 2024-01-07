@@ -473,14 +473,6 @@
                 <span class="cm52">${{ Total1.toFixed(2) }}</span>
               </div>
             </div>
-            <stripe-checkout
-              ref="checkoutRef"
-              mode="payment"
-              :pk="publishableKey"
-              :line-items="lineItems"
-              :success-url="successURl"
-              @loading="(v) => (loading = v)"
-            />
             <div v-if="checkedout" @click="checkout()" class="cm6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -589,7 +581,6 @@ import Payment from "../components/Payment.vue";
 import { mapGetters, mapActions } from "vuex";
 import Header from "../components/Header.vue";
 import Footer from "../components/Footer.vue";
-import { StripeCheckout } from "@vue-stripe/vue-stripe";
 export default {
   data() {
     return {
