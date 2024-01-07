@@ -587,7 +587,7 @@ export default {
       windowWidth: window.innerWidth,
       Paymentsuccess: false,
       cartc5: false,
-      loading: false,
+      /* loading: false,
       lineItems: [
         {
           price: "price_1OS1y4Gl2kDj8xLv0o3aeDQ8",
@@ -597,7 +597,7 @@ export default {
       cancelURl: "http://localhost:5173/sign-up",
       successURl: "http://localhost:5173/cart",
       publishableKey:
-        "pk_test_51ORzhDGl2kDj8xLv18vpQ4sDVJprapVGzjlvyoccObPcMt7DMttV77S1VZQqR24n8Rwbv1Xb4HYAd4I2IHw1uONc00gczlLhXe",
+        "pk_test_51ORzhDGl2kDj8xLv18vpQ4sDVJprapVGzjlvyoccObPcMt7DMttV77S1VZQqR24n8Rwbv1Xb4HYAd4I2IHw1uONc00gczlLhXe", */
       Email: "",
       Firstname: "",
       Lastname: "",
@@ -636,7 +636,7 @@ export default {
   components: {
     Header,
     Footer,
-    StripeCheckout,
+    /* StripeCheckout, */
     Payment,
     MobileHeader: defineAsyncComponent(() => import("../components/MobileHeader.vue")),
   },
@@ -701,7 +701,7 @@ export default {
     handleResize() {
       this.windowWidth = window.innerWidth;
     },
-    async Buy() {
+    /* async Buy() {
       if (this.validateForm && this.isSelectionValid) {
         try {
           await this.$refs.checkoutRef.redirectToCheckout();
@@ -711,7 +711,7 @@ export default {
       } else {
         this.cartc5 = true;
       }
-    },
+    }, */
     validateForm() {
       this.isEmailValid = this.validateEmail(this.Email);
       this.isFirstnameValid = this.validateRequiredField(this.Firstname);
