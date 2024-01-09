@@ -15,6 +15,7 @@ export default {};
 <style>
 @media only screen and (max-width: 600px) {
   .popup-success {
+    width: 100%;
     top: 12%;
     left: 26%;
   }
