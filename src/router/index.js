@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import Home from '../views/Home.vue'
-import Signup from '../views/Signup.vue'
 import ForgetPass from '../views/ForgetPass.vue'
 import Resetpass from '../views/Resetpass.vue'
 import Products from '../views/Products/Products.vue'
@@ -115,7 +114,7 @@ const routes = [
     path: '/Cart',
     name: 'Cart',
     component: Cart,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true } 
   },
 ]
 

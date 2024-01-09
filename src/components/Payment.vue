@@ -13,6 +13,12 @@ export default {};
 </script>
 
 <style>
+@media only screen and (max-width: 600px) {
+  .popup-success {
+    top: 12%;
+    left: 26%;
+  }
+}
 .popup-success {
   box-shadow: 0 16px 17px 15px rgba(0, 0, 0, 0.1);
   display: flex;
