@@ -4,6 +4,28 @@
       <Header v-if="windowWidth >= 767" />
       <MobileHeader v-else />
     </div>
+    <div v-show="alert" class="cart-alert">
+      <div class="cart-alert1">
+        <div>
+          <svg
+            viewBox="0 0 24 24"
+            width="100%"
+            height="20px"
+            fill="var(--toastify-icon-color-success)"
+          >
+            <path
+              d="M12 0a12 12 0 1012 12A12.014 12.014 0 0012 0zm6.927 8.2l-6.845 9.289a1.011 1.011 0 01-1.43.188l-4.888-3.908a1 1 0 111.25-1.562l4.076 3.261 6.227-8.451a1 1 0 111.61 1.183z"
+            ></path>
+          </svg>
+        </div>
+        <div>Item has been added to cart</div>
+      </div>
+    </div>
+    <div v-show="cAlert" class="cart-alert">
+      <div class="cart-alert1">
+        <div>Item already in cart</div>
+      </div>
+    </div>
     <div class="cartmain1">
       <div class="cart-categories">
         <div class="cartc1">
@@ -584,6 +606,8 @@ import Footer from "../components/Footer.vue";
 export default {
   data() {
     return {
+      alert: false,
+      cAlert: false,
       windowWidth: window.innerWidth,
       Paymentsuccess: false,
       cartc5: false,
@@ -863,6 +887,15 @@ export default {
       ).toFixed(2);
       if (!isProductInCart) {
         this.carts.push({ ...product, Quantity, Price });
+        this.alert = true;
+        setTimeout(() => {
+          this.alert = false;
+        }, 3000);
+      } else {
+        this.cAlert = true;
+        setTimeout(() => {
+          this.cAlert = false;
+        }, 3000);
       }
     },
     calculateNormalPrice(discountPercentage, discountPrice) {

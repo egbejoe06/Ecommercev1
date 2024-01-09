@@ -4,6 +4,28 @@
       <Header v-if="windowWidth >= 767" />
       <MobileHeader v-else />
     </div>
+    <div v-show="alert" class="cart-alert">
+      <div class="cart-alert1">
+        <div>
+          <svg
+            viewBox="0 0 24 24"
+            width="100%"
+            height="20px"
+            fill="var(--toastify-icon-color-success)"
+          >
+            <path
+              d="M12 0a12 12 0 1012 12A12.014 12.014 0 0012 0zm6.927 8.2l-6.845 9.289a1.011 1.011 0 01-1.43.188l-4.888-3.908a1 1 0 111.25-1.562l4.076 3.261 6.227-8.451a1 1 0 111.61 1.183z"
+            ></path>
+          </svg>
+        </div>
+        <div>Item has been added to cart</div>
+      </div>
+    </div>
+    <div v-show="cAlert" class="cart-alert">
+      <div class="cart-alert1">
+        <div>Item already in cart</div>
+      </div>
+    </div>
     <div class="pd9">
       <div v-if="productDetails">
         <div class="productdetails1">
@@ -295,6 +317,8 @@ export default {
   components: { Header, Footer, MobileHeader },
   data() {
     return {
+      cAlert: false,
+      alert: false,
       windowWidth: window.innerWidth,
       selectedCity: "",
       selectedCountry: "",
@@ -427,16 +451,32 @@ export default {
       ).toFixed(2);
       if (!isProductInCart) {
         this.carts.push({ ...product, Quantity, Price });
+        this.alert = true;
+        setTimeout(() => {
+          this.alert = false;
+        }, 3000);
+      } else {
+        this.cAlert = true;
+        setTimeout(() => {
+          this.cAlert = false;
+        }, 3000);
       }
     },
-    async addToCart(productDetails) {
+    addToCart(productDetails) {
       const isProductInCart = this.carts.some((item) => item.id === productDetails.id);
       const Quantity = this.number;
       const Price = this.normalPrice;
-      const local = await supabase.auth.getUser();
       if (!isProductInCart) {
         this.carts.push({ ...productDetails, Quantity, Price });
-        console.log(local);
+        this.alert = true;
+        setTimeout(() => {
+          this.alert = false;
+        }, 3000);
+      } else {
+        this.cAlert = true;
+        setTimeout(() => {
+          this.cAlert = false;
+        }, 3000);
       }
     },
     add(productDetails) {
@@ -526,7 +566,63 @@ export default {
 };
 </script>
 <style>
+.cart-alert {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
+  position: fixed;
+  top: 67px;
+  z-index: 1;
+  width: 100%;
+}
+.cart-alert1 {
+  position: absolute;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  background-color: #e9e9e9;
+  width: 250px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 7px 13px 23px 0px rgba(0, 0, 0, 0.56);
+  color: var(--text-color-light-secondary-text, #555);
+  font-feature-settings: "clig" off, "liga" off;
+  font-family: Lato;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+}
 @media only screen and (max-width: 600px) {
+  .cart-alert {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 67px;
+    z-index: 1;
+    width: 100%;
+  }
+  .cart-alert1 {
+    position: absolute;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    background-color: #e9e9e9;
+    width: 250px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 7px 13px 23px 0px rgba(0, 0, 0, 0.56);
+    color: var(--text-color-light-secondary-text, #555);
+    font-feature-settings: "clig" off, "liga" off;
+    font-family: Lato;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+  }
   .productdetails1 {
     padding: 0px 10px !important;
     flex-direction: column;
@@ -1170,6 +1266,7 @@ tbody {
   border: 1px solid #c4c4c4;
 }
 .productdetails1 {
+  position: relative;
   display: flex;
   padding: 0px 90px;
   align-items: center;
