@@ -507,6 +507,7 @@ a {
   font-style: normal;
   font-weight: 400;
   line-height: 20px; /* 142.857% */
+  border: none;
 }
 .search select {
   width: 107px;
