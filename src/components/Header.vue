@@ -153,7 +153,9 @@ import Menu from "../components/Menu.vue";
 export default {
   created() {
     const favoriteProductsArray = this.$store.getters["product/favoriteProductsArray"];
-    this.host();
+  },
+  async mounted() {
+    await this.host();
   },
   components: { Menu },
   data() {
