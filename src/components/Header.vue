@@ -140,11 +140,13 @@
   <div class="header3" v-show="header3"><Menu /></div>
 </template>
 <script>
+import { supabase } from "../clients/supabase";
 import { mapGetters, mapActions } from "vuex";
 import Menu from "../components/Menu.vue";
 export default {
   created() {
     const favoriteProductsArray = this.$store.getters["product/favoriteProductsArray"];
+    this.host();
   },
   components: { Menu },
   data() {
@@ -175,6 +177,10 @@ export default {
     this.setSearchQuery("");
   },
   methods: {
+    async host() {
+      const user = await supabase.auth.getUser();
+      console.log(user);
+    },
     ...mapActions("product", ["setSearchQuery", "resetSearchQuery"]),
     showHeader3() {
       this.header3 = !this.header3;
