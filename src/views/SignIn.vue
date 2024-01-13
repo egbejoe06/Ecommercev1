@@ -155,6 +155,13 @@ export default {
   },
 };
 </script>
+<style scoped>
+@media only screen and (max-width: 600px) {
+  .search {
+    display: none !important;
+  }
+}
+</style>
 <style>
 @media only screen and (max-width: 600px) {
   form {

@@ -474,7 +474,7 @@ a {
   padding: var(--spacing-7, 28px) 90px;
   align-items: center;
   align-content: center;
-  gap: var(--spacing-3, 12px) 50px;
+  justify-content: space-between;
   align-self: stretch;
   flex-wrap: wrap;
   border-radius: var(--spacing-0, 0px);

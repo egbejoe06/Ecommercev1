@@ -58,7 +58,7 @@
       <div class="cate23">{{ carts.length }}</div>
     </div>
   </div>
-  <div class="search">
+  <div class="search" v-if="(showsearch = true)">
     <div class="search1">
       <div>
         <input v-model="searched" type="text" placeholder="search products" />
@@ -92,6 +92,9 @@ export default {
     const favoriteProductsArray = this.$store.getters["product/favoriteProductsArray"];
   },
   components: { Menu },
+  props: {
+    showsearch: true,
+  },
   data() {
     return {
       show: true,
