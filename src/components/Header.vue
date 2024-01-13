@@ -77,12 +77,13 @@
           <div class="cate22">Sign in</div>
         </div></Router-Link
       >
-      <Router-Link v-else :to="{ name: 'Signin' }">
-        <div class="cate21">
+      <div v-else class="cate21 cate25">
+        <div class="cate26">
           <div><img src="../assets/Signin.svg" alt="" /></div>
           <div class="cate22">{{ User }}</div>
-        </div></Router-Link
-      >
+        </div>
+        <div class="cate22 cate24" @click="logout()">Sign out</div>
+      </div>
       <div class="cate42">
         <div class="cate21">
           <div><img src="../assets/Favorides.svg" alt="" /></div>
@@ -187,7 +188,9 @@ export default {
     async host() {
       const user = await supabase.auth.getUser();
       this.User = user.data.user.email;
-      console.log(this.User);
+    },
+    async logout() {
+      const user = await supabase.auth.signOut();
     },
     ...mapActions("product", ["setSearchQuery", "resetSearchQuery"]),
     showHeader3() {
@@ -213,6 +216,32 @@ export default {
 };
 </script>
 <style>
+.cate21 {
+  flex: unset !important;
+}
+.cate26 {
+  display: flex;
+}
+.cate24 {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  font-size: 14px !important;
+  color: #262626 !important;
+  background: #e9e9e9 !important;
+}
+.cate25:hover .cate24 {
+  display: flex;
+}
+.cate25:hover .cate26 {
+  display: flex;
+  flex-direction: column;
+}
+.cate25 {
+  justify-content: center;
+  align-items: center !important;
+}
 .home1 {
   width: 100%;
 }
