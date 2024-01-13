@@ -199,6 +199,9 @@ export default {
 };
 </script>
 <style>
+.home1 {
+  width: 100%;
+}
 select {
   background-color: transparent;
 }
