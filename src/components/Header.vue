@@ -71,10 +71,16 @@
     </div>
     <div class="cate3"></div>
     <div class="cate2">
-      <Router-Link :to="{ name: 'Signin' }">
+      <Router-Link v-if="User === ''" :to="{ name: 'Signin' }">
         <div class="cate21">
           <div><img src="../assets/Signin.svg" alt="" /></div>
           <div class="cate22">Sign in</div>
+        </div></Router-Link
+      >
+      <Router-Link v-else :to="{ name: 'Signin' }">
+        <div class="cate21">
+          <div><img src="../assets/Signin.svg" alt="" /></div>
+          <div class="cate22">{{ User }}</div>
         </div></Router-Link
       >
       <div class="cate42">
@@ -154,6 +160,7 @@ export default {
       header3: false,
       searchCategories: "All categories",
       searched: "",
+      User: "",
     };
   },
   computed: {
@@ -179,7 +186,8 @@ export default {
   methods: {
     async host() {
       const user = await supabase.auth.getUser();
-      console.log(user.data.user.email);
+      this.User = user.data.user.email;
+      console.log(this.User);
     },
     ...mapActions("product", ["setSearchQuery", "resetSearchQuery"]),
     showHeader3() {
