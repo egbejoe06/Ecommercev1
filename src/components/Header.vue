@@ -190,6 +190,7 @@ export default {
     async host() {
       const user = await supabase.auth.getUser();
       this.User = user.data.user.email;
+      location.reload(true);
     },
     async logout() {
       const user = await supabase.auth.signOut();
