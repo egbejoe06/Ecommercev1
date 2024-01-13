@@ -6,6 +6,7 @@ const state =
         isFavorite: [],
         products: [],
         searchQuery: "",
+        fav:[],
       }
      const mutations = {
       SET_SEARCH_QUERY(state, searchQuery) {
@@ -20,13 +21,13 @@ const state =
         if (state.isFavorite.length === 0) {
             state.isFavorite = [];
             state.products.forEach((product) => {
-                state.Images[product.id] = "../src/assets/favorite2.svg";
+                state.fav[product.id] = true
                 state.isFavorite[product.id] = false;
             });
         } else {
             state.products.forEach((product) => {
-                if (!state.Images.hasOwnProperty(product.id)) {
-                    state.Images[product.id] = "../src/assets/favorite2.svg";
+                if (!state.fav.hasOwnProperty(product.id)) {
+                    state.fav[product.id] = true;
                 }
             });
         }
@@ -34,9 +35,9 @@ const state =
           toggleFavorite(state, productId) {
             state.isFavorite[productId] = !state.isFavorite[productId];
             if (state.isFavorite[productId]) {
-              state.Images[productId] = "../src/assets/favorite1.svg";
+              state.fav[productId] = false;
             } else {
-              state.Images[productId] = "../src/assets/favorite2.svg";
+              state.fav[productId] = true;
             }
           },
         }
