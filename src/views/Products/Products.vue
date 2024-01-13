@@ -389,6 +389,11 @@ export default {
 };
 </script>
 <style>
+@media only screen and (max-width: 600px) {
+  .mm {
+    width: unset !important;
+  }
+}
 .stars {
   color: gold;
 }
