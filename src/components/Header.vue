@@ -179,7 +179,7 @@ export default {
   methods: {
     async host() {
       const user = await supabase.auth.getUser();
-      console.log(user);
+      console.log(user.data.user.email);
     },
     ...mapActions("product", ["setSearchQuery", "resetSearchQuery"]),
     showHeader3() {
