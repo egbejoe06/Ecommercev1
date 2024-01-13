@@ -988,7 +988,7 @@ export default {
   .coupon {
     flex-direction: row !important;
     align-items: center !important;
-    justify-content: center !important;
+    justify-content: space-between !important;
     padding: 0px 10px !important;
   }
   .coupon1 {
@@ -1416,6 +1416,7 @@ export default {
 }
 .coupon {
   display: flex;
+  gap: 10px;
   padding: var(--spacing-0, 0px) 90px;
   justify-content: flex-end;
   flex-direction: column;
