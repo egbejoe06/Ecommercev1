@@ -311,7 +311,7 @@ select {
 }
 .cate4 {
   top: 30px;
-  left: -65px;
+  left: -165px;
   position: absolute;
   display: none;
   padding: var(--spacing-6, 24px) var(--spacing-5, 20px);

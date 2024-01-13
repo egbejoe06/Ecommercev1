@@ -1093,6 +1093,9 @@ tbody {
   gap: 35px;
 }
 .isFav1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 1px solid #d9dadb;
   width: 32px;
   height: 32px;
