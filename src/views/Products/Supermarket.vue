@@ -236,10 +236,11 @@ export default {
         const category = product.category.toLowerCase();
 
         const isGroceries = category.includes("groceries");
+        const iskitchen = category.includes("kitchen-accessories")
         const isMatchingCategory =
           !this.selectedCategory || category.includes(this.selectedCategory);
 
-        if (category.includes(this.selectedCategory) || category.includes("groceries")) {
+        if (category.includes(this.selectedCategory) || category.includes("kitchen-accessories") || category.includes("groceries")) {
           return (
             titleMatches &&
             productPrice >= this.minValue &&
@@ -251,7 +252,8 @@ export default {
             titleMatches &&
             productPrice >= this.minValue &&
             productPrice <= this.maxValue &&
-            isGroceries
+            isGroceries &&
+            iskitchen
           );
         }
       });

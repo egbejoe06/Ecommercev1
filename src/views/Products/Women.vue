@@ -372,8 +372,8 @@ export default {
           .includes(this.searchQuery.toLowerCase() || this.search.toLowerCase());
         const category = product.category.toLowerCase();
 
-        const isWomenDress = category.includes("women-dress");
-        const isWomenShoes = category.includes("women-shoes");
+        const isWomenDress = category.includes("womens-dresses");
+        const isWomenShoes = category.includes("womens-shoes");
         const isWomensWatches = category.includes("womens-watches");
         const isWomensBags = category.includes("womens-bags");
         const isWomensJewellery = category.includes("womens-jewellery");
@@ -399,17 +399,27 @@ export default {
             titleMatches &&
             productPrice >= this.minValue &&
             productPrice <= this.maxValue &&
-            (isWomenDress ||
-              isWomenShoes ||
-              isWomensWatches ||
-              isWomensBags ||
-              isWomensJewellery)
+            isWomenDress &&
+              isWomenShoes &&
+              isWomensWatches &&
+              isWomensBags &&
+              isWomensJewellery
           );
         }
       });
     },
   },
   methods: {
+    async fetchCategories() {
+      try {
+        const response = await fetch('https://dummyjson.com/products/category/womens-bags');
+        const data = await response.json();
+       console.log(data);
+       
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    },
     togglemenu() {
       this.sidemenu = !this.sidemenu;
       this.mainmenu = !this.mainmenu;
@@ -518,6 +528,7 @@ export default {
   },
 
   mounted() {
+    this.fetchCategories();
     window.addEventListener("resize", this.handleResize);
     // calc per step value
     this.totalSteps = (this.max - this.min) / this.step;
