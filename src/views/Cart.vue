@@ -726,6 +726,7 @@ export default {
           },
           callback: (response) => {
             this.Paymentsuccess = true;
+            this.carts = [];
             setTimeout(() => {
               this.Paymentsuccess = false;
             }, 10000);
