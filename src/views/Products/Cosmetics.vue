@@ -86,7 +86,7 @@
         </div>
       </div>
       <div class="mainmenu" v-show="mainmenu">
-        <div class="mm" v-for="product in sortedProducts.slice(0, 12)" :key="product.id">
+        <div class="mm" v-for="product in sortedProducts" :key="product.id">
           <div class="mm-1">
             <router-link :to="{ name: 'Productdetails', params: { id: product.id } }">
               <div>
@@ -237,14 +237,17 @@ export default {
         const category = product.category.toLowerCase();
 
         const isFragrances = category.includes("fragrances");
-        const isSkincare = category.includes("skincare");
+        const isSkincare = category.includes("skin-care");
+        const isbeauty = category.includes("beauty");
         const isMatchingCategory =
           !this.selectedCategory || category.includes(this.selectedCategory);
 
         if (
           category.includes(this.selectedCategory) ||
           category.includes("fragrances") ||
-          category.includes("skincare")
+          category.includes("skin-care")
+          ||
+          category.includes("beauty")
         ) {
           return (
             titleMatches &&
@@ -257,7 +260,7 @@ export default {
             titleMatches &&
             productPrice >= this.minValue &&
             productPrice <= this.maxValue &&
-            (isFragrances || isSkincare)
+            (isFragrances || isSkincare || isbeauty)
           );
         }
       });

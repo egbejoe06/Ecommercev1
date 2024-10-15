@@ -85,7 +85,7 @@
         </div>
       </div>
       <div class="mainmenu" v-show="mainmenu">
-        <div class="mm" v-for="product in sortedProducts.slice(0, 12)" :key="product.id">
+        <div class="mm" v-for="product in sortedProducts" :key="product.id">
           <div class="mm-1">
             <router-link :to="{ name: 'Productdetails', params: { id: product.id } }">
               <div>

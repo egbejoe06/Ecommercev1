@@ -87,7 +87,7 @@
         </div>
       </div>
       <div class="mainmenu" v-show="mainmenu">
-        <div class="mm" v-for="product in sortedProducts.slice(0, 12)" :key="product.id">
+        <div class="mm" v-for="product in sortedProducts" :key="product.id">
           <div class="mm-1">
             <router-link :to="{ name: 'Productdetails', params: { id: product.id } }">
               <div>
@@ -179,10 +179,10 @@ export default {
       min: 10,
       max: 2100,
       minValue: 25,
-      maxValue: 1850,
-      step: 5,
+      maxValue: 58050,
+      step: 50,
       totalSteps: 0,
-      percentPerStep: 1,
+      percentPerStep: 10,
       trackWidth: null,
       isDragging: false,
       pos: {
@@ -238,16 +238,18 @@ export default {
         const category = product.category.toLowerCase();
 
         const issmartphones = category.includes("sunglasses");
-        const islaptops = category.includes("automotive");
+        const islaptops = category.includes("vehicle");
         const islaptop = category.includes("motorcycle");
+        const isSport = category.includes("sports-accessories");
         const isMatchingCategory =
           !this.selectedCategory || category.includes(this.selectedCategory);
 
         if (
           category.includes(this.selectedCategory) ||
           category.includes("sunglasses") ||
-          category.includes("automotive") ||
-          category.includes("motorcycle")
+          category.includes("vehicle")||
+          category.includes("motorcycle") ||
+          category.includes("sports-accessories")
         ) {
           return (
             titleMatches &&
@@ -260,7 +262,7 @@ export default {
             titleMatches &&
             productPrice >= this.minValue &&
             productPrice <= this.maxValue &&
-            (issmartphones || islaptops || islaptop)
+            (issmartphones || islaptops || islaptop || isSport)
           );
         }
       });

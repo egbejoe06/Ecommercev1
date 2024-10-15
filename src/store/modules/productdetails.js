@@ -13,6 +13,9 @@ const state =
         selectedCountryDialCode: '',
       }
      const mutations = {
+      resetCart(state) {
+        state.carts = [];
+      },
       setDialCode(state, dialCode) {
         state.selectedCountryDialCode = dialCode;
       },

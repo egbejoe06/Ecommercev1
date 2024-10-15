@@ -88,7 +88,7 @@
         </div>
       </div>
       <div class="mainmenu" v-show="mainmenu">
-        <div class="mm" v-for="product in sortedProducts.slice(0, 12)" :key="product.id">
+        <div class="mm" v-for="product in sortedProducts" :key="product.id">
           <div class="mm-1">
             <router-link :to="{ name: 'Productdetails', params: { id: product.id } }">
               <div>
@@ -180,7 +180,7 @@ export default {
       min: 10,
       max: 2100,
       minValue: 255,
-      maxValue: 1850,
+      maxValue: 5850,
       step: 5,
       totalSteps: 0,
       percentPerStep: 1,
@@ -235,13 +235,17 @@ export default {
 
         const issmartphones = category.includes("smartphones");
         const islaptops = category.includes("laptops");
+        const isMobile = category.includes("mobile-accessories");
+        const istablet = category.includes("tablets");
         const isMatchingCategory =
           !this.selectedCategory || category.includes(this.selectedCategory);
 
         if (
           category.includes(this.selectedCategory) ||
           category.includes("smartphones") ||
-          category.includes("laptops")
+          category.includes("laptops") ||
+          category.includes("mobile-accessories")||
+          category.includes("tablets")
         ) {
           return (
             titleMatches &&
@@ -254,7 +258,7 @@ export default {
             titleMatches &&
             productPrice >= this.minValue &&
             productPrice <= this.maxValue &&
-            (issmartphones || islaptops)
+            (issmartphones || islaptops || isMobile || istablet)
           );
         }
       });

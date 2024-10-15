@@ -726,10 +726,10 @@ export default {
           },
           callback: (response) => {
             this.Paymentsuccess = true;
-            this.carts = [];
+            this.$store.commit('productdetails/resetCart');
             setTimeout(() => {
               this.Paymentsuccess = false;
-            }, 10000);
+            }, 5000);
           },
         });
 
